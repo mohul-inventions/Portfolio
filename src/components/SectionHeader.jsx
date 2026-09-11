@@ -24,8 +24,8 @@ export function SectionHeader({ number, tag, title, description, align = 'left' 
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#f4f4f0] uppercase"
-        style={{ fontFamily: 'Syne, sans-serif' }}
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#f4f4f0]"
+        style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
       >
         {title}
       </motion.h2>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import { useMousePosition } from './hooks/useMousePosition';
 import { useScrollSpy } from './hooks/useScrollSpy';
 
@@ -33,6 +33,14 @@ export default function App() {
   const { mousePosition, isPointerDevice } = useMousePosition();
   const activeSection = useScrollSpy(SECTION_IDS, 140);
 
+  // Smooth scroll progress bar at top of viewport
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 220,
+    damping: 32,
+    restDelta: 0.001
+  });
+
   // Keyboard shortcut: Press 's' or 'S' to toggle System / Human mode
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -49,13 +57,19 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#09090b] text-[#f4f4f0] font-sans selection:bg-amber-500/30 selection:text-amber-200">
+      {/* Top Ambient Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-500 via-amber-400 to-amber-200 origin-left z-50 shadow-[0_0_8px_rgba(245,158,11,0.6)]"
+        style={{ scaleX }}
+      />
+
       {/* Noise Texture Overlay */}
       <NoiseOverlay />
 
       {/* Mouse Spotlight Amber Glow */}
       <AmbientGlow mousePosition={mousePosition} isPointerDevice={isPointerDevice} />
 
-      {/* Custom Minimal Dot/Ring Cursor (Desktop only) */}
+      {/* Unique Precision Reticle & Aura Cursor (Desktop only) */}
       <CustomCursor mousePosition={mousePosition} isPointerDevice={isPointerDevice} />
 
       {/* Fast High-Tech Bootloader */}

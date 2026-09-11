@@ -57,7 +57,7 @@ export function JourneySection() {
                     {getJourneyIcon(idx)}
                   </div>
                   <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
+                    <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                       {step.title}
                     </h3>
                     <p className="text-xs font-mono text-zinc-400 mt-0.5">{step.role}</p>

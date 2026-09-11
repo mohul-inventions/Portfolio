@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Syne", sans-serif;
-  --font-heading: "Space Grotesk", sans-serif;
+  --font-display: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "Fira Code", monospace;
+  --font-mono: "JetBrains Mono", monospace;
 
   --color-carbon-950: #060608;
   --color-carbon-900: #09090b;

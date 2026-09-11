@@ -73,7 +73,7 @@ export function ContactSection() {
             <div className="p-6 sm:p-8 rounded-3xl bg-zinc-950/80 border border-zinc-800 relative overflow-hidden shadow-2xl">
               <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-bl-full pointer-events-none" />
 
-              <h3 className="text-xl font-bold text-white mb-2" style={{ fontFamily: 'Syne, sans-serif' }}>
+              <h3 className="text-xl font-bold text-white mb-2 tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                 Direct Transmission
               </h3>
               <p className="text-sm text-zinc-400 mb-6">

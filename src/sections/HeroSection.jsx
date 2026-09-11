@@ -1,12 +1,33 @@
-import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, Sparkles, Terminal, ShieldCheck, MapPin, Code2 } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { ArrowDown, ArrowUpRight, Sparkles, Terminal, MapPin, Code2, ShieldCheck } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export function HeroSection({ mode }) {
   const canvasRef = useRef(null);
+  const cardRef = useRef(null);
 
-  // Subtle interactive particle mesh in hero background
+  // 3D Perspective Tilt for the Portrait Card
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [12, -12]), { damping: 20, stiffness: 200 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), { damping: 20, stiffness: 200 });
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+    const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(xPct);
+    mouseY.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  // Interactive particle canvas in hero background
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -23,11 +44,11 @@ export function HeroSection({ mode }) {
 
     window.addEventListener('resize', handleResize);
 
-    const particles = Array.from({ length: 35 }, () => ({
+    const particles = Array.from({ length: 40 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
+      vx: (Math.random() - 0.5) * 0.45,
+      vy: (Math.random() - 0.5) * 0.45,
       radius: Math.random() * 1.5 + 0.5,
       alpha: Math.random() * 0.4 + 0.1,
     }));
@@ -42,7 +63,7 @@ export function HeroSection({ mode }) {
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 130) {
-            ctx.strokeStyle = `rgba(245, 158, 11, ${0.12 * (1 - dist / 130)})`;
+            ctx.strokeStyle = `rgba(245, 158, 11, ${0.14 * (1 - dist / 130)})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
@@ -104,7 +125,8 @@ export function HeroSection({ mode }) {
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
-        {/* Top Status & Identity Pill */}
+        
+        {/* Top Status & Identity Badges */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -112,7 +134,7 @@ export function HeroSection({ mode }) {
           className="flex flex-wrap items-center gap-3 mb-8"
         >
           {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 backdrop-blur-md">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -143,91 +165,164 @@ export function HeroSection({ mode }) {
           )}
         </motion.div>
 
-        {/* Large Editorial Headline */}
-        <div className="max-w-5xl">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase text-white leading-[0.95]"
-            style={{ fontFamily: 'Syne, sans-serif' }}
-          >
-            BUILDING IDEAS <br className="hidden sm:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 via-amber-200 to-amber-400">
-              INTO DIGITAL
-            </span>{' '}
-            EXPERIENCES.
-          </motion.h1>
+        {/* Hero Split Layout: Typography on Left, User Photo Spotlight on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          
+          {/* Left Column: Editorial Headline & Narrative */}
+          <div className="lg:col-span-7 xl:col-span-8">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05]"
+              style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+            >
+              Building ideas into <br className="hidden sm:inline" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 via-amber-200 to-amber-400">
+                digital experiences.
+              </span>
+            </motion.h1>
 
-          {/* Supporting Statement */}
-          <motion.p
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 sm:mt-8 text-lg sm:text-xl md:text-2xl text-zinc-400 max-w-3xl font-light leading-relaxed"
-          >
-            Computer Science Engineering student building{' '}
-            <span className="text-zinc-200 font-medium">full-stack applications</span>,{' '}
-            <span className="text-amber-300 font-medium">AI-powered systems</span>, and experimental digital products.
-          </motion.p>
+            {/* Supporting Statement */}
+            <motion.p
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6 text-base sm:text-lg md:text-xl text-zinc-400 max-w-2xl font-normal leading-relaxed"
+            >
+              Computer Science Engineering student building{' '}
+              <span className="text-zinc-100 font-medium">full-stack applications</span>,{' '}
+              <span className="text-amber-300 font-medium">AI-powered systems</span>, and experimental digital products.
+            </motion.p>
 
-          {/* Technical Metadata Row */}
+            {/* Technical Metadata Row */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.35 }}
+              className="mt-6 flex flex-wrap items-center gap-2 sm:gap-2.5 text-xs sm:text-sm font-mono text-zinc-400"
+            >
+              <span className="text-amber-400 font-semibold">{PERSONAL_INFO.name}</span>
+              <span className="text-zinc-700">|</span>
+              {PERSONAL_INFO.metaTags.map((tag, i) => (
+                <React.Fragment key={tag}>
+                  <span className="px-2.5 py-1 rounded-md bg-zinc-900/80 border border-zinc-800 text-zinc-300 hover:border-amber-500/40 transition-colors">
+                    {tag}
+                  </span>
+                  {i < PERSONAL_INFO.metaTags.length - 1 && <span className="text-zinc-700 hidden sm:inline">•</span>}
+                </React.Fragment>
+              ))}
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.45 }}
+              className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4"
+            >
+              {/* Primary CTA */}
+              <button
+                onClick={() => scrollToSection('projects')}
+                className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 bg-amber-400 hover:bg-amber-300 text-black font-semibold text-sm rounded-xl transition-all duration-200 shadow-xl shadow-amber-400/20 hover:shadow-amber-400/30 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              >
+                <span>Explore My Work</span>
+                <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+              </button>
+
+              {/* Secondary CTA */}
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="inline-flex items-center gap-2 px-5 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 hover:text-white font-medium text-sm rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer"
+              >
+                <span>Let's Connect</span>
+                <Sparkles className="w-4 h-4 text-amber-400" />
+              </button>
+
+              {/* GitHub Outlink */}
+              <a
+                href={PERSONAL_INFO.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-3.5 text-zinc-400 hover:text-zinc-100 font-mono text-xs uppercase tracking-wider transition-colors"
+              >
+                <Code2 className="w-4 h-4 text-amber-400" />
+                <span>View GitHub</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right Column: User Portrait Card with 3D Tilt */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.35 }}
-            className="mt-6 flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm font-mono text-zinc-400"
+            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 xl:col-span-4 flex justify-center lg:justify-end"
           >
-            <span className="text-amber-400 font-semibold">C R MOHUL RAM</span>
-            <span className="text-zinc-700">|</span>
-            {PERSONAL_INFO.metaTags.map((tag, i) => (
-              <React.Fragment key={tag}>
-                <span className="px-2.5 py-1 rounded bg-zinc-900/80 border border-zinc-800 text-zinc-300 hover:border-amber-500/40 transition-colors">
-                  {tag}
-                </span>
-                {i < PERSONAL_INFO.metaTags.length - 1 && <span className="text-zinc-700 hidden sm:inline">•</span>}
-              </React.Fragment>
-            ))}
+            <div
+              ref={cardRef}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              className="relative group perspective-1000"
+            >
+              {/* Radial backlight glow */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-amber-500/20 via-amber-400/10 to-amber-600/20 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
+
+              {/* 3D Tilt Wrapper */}
+              <motion.div
+                style={{
+                  rotateX,
+                  rotateY,
+                  transformStyle: 'preserve-3d',
+                }}
+                className="relative w-64 sm:w-72 md:w-80 rounded-3xl overflow-hidden bg-zinc-950/90 border border-zinc-700/60 shadow-2xl p-3 backdrop-blur-xl"
+              >
+                {/* Image Frame */}
+                <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-zinc-900">
+                  <img
+                    src="/mohul-ram.jpg"
+                    alt="C R Mohul Ram"
+                    className="w-full h-full object-cover object-center grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                  />
+
+                  {/* Subtle Gradient Shade at Bottom */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+                  {/* Corner Accent Reticle Brackets */}
+                  <div className="absolute top-3 left-3 w-3 h-3 border-t-2 border-l-2 border-amber-400/80" />
+                  <div className="absolute top-3 right-3 w-3 h-3 border-t-2 border-r-2 border-amber-400/80" />
+                  <div className="absolute bottom-3 left-3 w-3 h-3 border-b-2 border-l-2 border-amber-400/80" />
+                  <div className="absolute bottom-3 right-3 w-3 h-3 border-b-2 border-r-2 border-amber-400/80" />
+
+                  {/* Floating Overlay Badge at Bottom of Photo */}
+                  <div className="absolute bottom-4 inset-x-4">
+                    <div className="p-3 rounded-xl bg-zinc-950/90 border border-zinc-800/80 backdrop-blur-md shadow-lg">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-bold text-white tracking-wide font-mono">
+                          {PERSONAL_INFO.name}
+                        </span>
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      </div>
+                      <p className="text-[11px] text-zinc-400 font-mono leading-tight">
+                        Amrita Vishwa Vidyapeetham • 2nd Yr
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Card Footer */}
+                <div className="mt-3 px-2 py-1 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                  <span className="flex items-center gap-1.5 text-amber-400">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>Verified Developer</span>
+                  </span>
+                  <span className="text-zinc-600">TAMIL NADU, IN</span>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
-
-        {/* CTA Buttons & Social Proof */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.45 }}
-          className="mt-10 sm:mt-12 flex flex-wrap items-center gap-4"
-        >
-          {/* Primary CTA */}
-          <button
-            onClick={() => scrollToSection('projects')}
-            className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 bg-amber-400 hover:bg-amber-300 text-black font-semibold text-sm rounded-xl transition-all duration-200 shadow-xl shadow-amber-400/20 hover:shadow-amber-400/30 hover:-translate-y-0.5 active:translate-y-0"
-          >
-            <span>Explore My Work</span>
-            <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-          </button>
-
-          {/* Secondary CTA */}
-          <button
-            onClick={() => scrollToSection('contact')}
-            className="inline-flex items-center gap-2 px-6 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 hover:text-white font-medium text-sm rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all duration-200"
-          >
-            <span>Let's Connect</span>
-            <Sparkles className="w-4 h-4 text-amber-400" />
-          </button>
-
-          {/* GitHub Outlink */}
-          <a
-            href={PERSONAL_INFO.github}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3.5 text-zinc-400 hover:text-zinc-100 font-mono text-xs uppercase tracking-wider transition-colors"
-          >
-            <Code2 className="w-4 h-4 text-amber-400" />
-            <span>View GitHub</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
-          </a>
-        </motion.div>
       </div>
 
       {/* Bottom Editorial Meta & Scroll Down Prompt */}

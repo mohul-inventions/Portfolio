@@ -196,30 +196,31 @@ export const FEATURED_PROJECTS = [
     }
   },
   {
-    id: "kiddo",
+    id: "project-aura",
     number: "05",
-    title: "Kiddo",
-    subtitle: "Interactive Educational Experience",
-    category: "EdTech & Interactive UI",
-    technologies: ["HTML", "CSS", "JavaScript"],
+    title: "Project-AURA",
+    subtitle: "Atmospheric Dynamic User Experience & Interactive Engine",
+    category: "Interactive Systems / UI",
+    technologies: ["React", "JavaScript", "Tailwind CSS", "Framer Motion"],
     description:
-      "An interactive educational application concept designed for young learners with engaging activities and learning-focused interactions.",
+      "An atmospheric digital interface experiment exploring dynamic ambient luminance, kinetic spring mechanics, responsive states, and modern aesthetic design systems.",
     detailedOverview:
-      "Kiddo reimagines early digital learning with vibrant visual cues, gamified micro-tasks, and accessible interaction patterns that teach fundamental cognitive concepts in a playful, rewarding environment without cognitive overload.",
+      "Engineered to explore the intersection of creative frontend engineering and performance, Project-AURA investigates fluid spatial layouts, reactive lighting shaders, tactile micro-interactions, and state management architectures without compromising frame rates or accessibility.",
     features: [
-      "Engaging interactive learning activities designed specifically for kids",
-      "Vibrant animations and audio-visual reinforcement",
-      "Distraction-free, accessible layout with large touch targets",
-      "Pure front-end implementation with high framerate responsiveness"
+      "Dynamic ambient luminance & reactive lighting effects",
+      "Physics-based spring motion animations and tactile feedback",
+      "Modular component system with clean architectural boundaries",
+      "Responsive multi-device viewport scaling and 60fps performance"
     ],
-    repository: "kiddo",
-    githubUrl: "https://github.com/mohul-inventions/kiddo",
-    accentColor: "from-amber-400/20 to-yellow-500/10",
-    badge: "Interactive Experience",
+    repository: "Project-AURA",
+    githubUrl: "https://github.com/mohul-inventions/Project-AURA",
+    accentColor: "from-amber-400/20 to-violet-500/10",
+    badge: "Interactive UI Engine",
     systemStats: {
-      target: "Early Childhood Digital Literacy",
-      interactions: "Gamified Touch & Click Feedback",
-      rendering: "DOM-based Lightweight Animation"
+      rendering: "Hardware-accelerated CSS GPU Layers",
+      physics: "Spring Dynamics & Kinetic Interpolation",
+      architecture: "Modular Design Token System",
+      framerate: "60 FPS Smooth Rendering"
     }
   },
   {
@@ -277,12 +278,12 @@ export const ADDITIONAL_PROJECTS = [
     githubUrl: "https://github.com/mohul-inventions"
   },
   {
-    name: "Project-AURA",
-    tech: "Web / UI",
-    category: "Experimental UI",
-    description: "Atmospheric user interface experiment exploring modern aesthetic designs.",
-    repo: "Project-AURA",
-    githubUrl: "https://github.com/mohul-inventions"
+    name: "Kiddo",
+    tech: "HTML, CSS, JavaScript",
+    category: "Interactive EdTech",
+    description: "Interactive early-learning educational web application designed for young learners.",
+    repo: "kiddo",
+    githubUrl: "https://github.com/mohul-inventions/kiddo"
   },
   {
     name: "Blog-App",
@@ -354,6 +355,26 @@ export const HACKATHONS = [
     category: "National Hackathon"
   },
   {
+    id: "hack-hustle",
+    title: "Hack Hustle 2.0",
+    organizer: "Saveetha Engineering College (SEC), Chennai",
+    status: "Shortlisted & Participant",
+    badgeType: "shortlisted",
+    year: "2026",
+    highlight: "24-hour offline innovation marathon; shortlisted to pitch and build live prototype solutions in Fintech, Logistics, and Healthcare domains",
+    category: "Offline 24h Hackathon"
+  },
+  {
+    id: "ggits-devdays",
+    title: "GitHub DevDays Hackathon",
+    organizer: "Gyan Ganga Institute of Tech & Sciences",
+    status: "Shortlisted & Participant",
+    badgeType: "shortlisted",
+    year: "2024",
+    highlight: "Open-source toolchains and developer ecosystem sprint; shortlisted and participated in high-velocity challenge",
+    category: "Open Source Hackathon"
+  },
+  {
     id: "iitm-road-safety",
     title: "Road Safety Hackathon",
     organizer: "IIT Madras",
@@ -374,34 +395,14 @@ export const HACKATHONS = [
     category: "Technical Event"
   },
   {
-    id: "vit-wehack",
-    title: "WE Hack 5.0",
-    organizer: "VIT Vellore",
+    id: "hackxpertise",
+    title: "HackXpertise 3.0",
+    organizer: "VIT / Technical Forum",
     status: "Participant",
     badgeType: "participant",
     year: "2025",
-    highlight: "Flagship hackathon building rapid product prototypes under time pressure",
+    highlight: "Flagship competitive hackathon building rapid product prototypes under time pressure",
     category: "Hackathon"
-  },
-  {
-    id: "cit-hackfusion",
-    title: "Hack Fusion 2026",
-    organizer: "Chennai Institute of Technology",
-    status: "Participant",
-    badgeType: "participant",
-    year: "2026",
-    highlight: "Collaborative problem-solving across modern software engineering stacks",
-    category: "Hackathon"
-  },
-  {
-    id: "ggits-devdays",
-    title: "GitHub DevDays Hackathon",
-    organizer: "Gyan Ganga Institute of Tech & Sciences",
-    status: "Participant",
-    badgeType: "participant",
-    year: "2024",
-    highlight: "Open-source toolchains and developer ecosystem sprint",
-    category: "Open Source Hackathon"
   },
   {
     id: "iit-mandi",

@@ -26,7 +26,7 @@ function getProjectIcon(id) {
     case 'make-insure': return <Shield className="w-5 h-5 text-emerald-400" />;
     case 'transit-tracker': return <Compass className="w-5 h-5 text-blue-400" />;
     case 'memoryverse-ai': return <BookOpen className="w-5 h-5 text-purple-400" />;
-    case 'kiddo': return <Smile className="w-5 h-5 text-amber-300" />;
+    case 'project-aura': return <Sparkles className="w-5 h-5 text-amber-300" />;
     case 'student-management-system': return <GraduationCap className="w-5 h-5 text-cyan-400" />;
     default: return <Terminal className="w-5 h-5 text-amber-400" />;
   }
@@ -139,7 +139,7 @@ export function FeaturedProjects({ mode }) {
                       <span className="text-xs font-mono uppercase text-amber-400 tracking-wider font-semibold">
                         PROJECT {currentProject.number} // {currentProject.badge}
                       </span>
-                      <h4 className="text-2xl font-extrabold text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
+                      <h4 className="text-2xl sm:text-3xl font-bold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                         {currentProject.title}
                       </h4>
                     </div>
@@ -246,7 +246,7 @@ export function FeaturedProjects({ mode }) {
                   </div>
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-1" style={{ fontFamily: 'Syne, sans-serif' }}>
+                <h3 className="text-xl font-bold text-white mb-1 tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                   {project.title}
                 </h3>
                 {project.subtitle && (

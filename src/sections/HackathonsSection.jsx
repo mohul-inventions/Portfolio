@@ -33,7 +33,7 @@ export function HackathonsSection() {
                 <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold">
                   NATIONAL RECOGNITION // 2024
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                   Smart India Hackathon (SIH)
                 </h3>
               </div>

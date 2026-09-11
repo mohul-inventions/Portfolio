@@ -54,8 +54,8 @@ export function LoadingScreen({ onComplete }) {
           <div className="w-20 h-20 rounded-2xl bg-zinc-900/90 border border-zinc-700/60 flex items-center justify-center shadow-2xl relative overflow-hidden group">
             <div className="absolute inset-0 bg-radial from-amber-500/20 to-transparent" />
             <span
-              className="text-3xl font-black text-amber-400 tracking-tighter"
-              style={{ fontFamily: 'Syne, sans-serif' }}
+              className="text-3xl font-black text-amber-400 tracking-tight"
+              style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
               CR
             </span>

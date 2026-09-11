@@ -65,7 +65,7 @@ export function ProjectModal({ project, isOpen, onClose }) {
           <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
             {/* Title & Subtitle */}
             <div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                 {project.title}
               </h3>
               {project.subtitle && (

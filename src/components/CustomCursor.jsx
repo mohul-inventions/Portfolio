@@ -1,12 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, AnimatePresence, useSpring } from 'framer-motion';
 
 export function CustomCursor({ mousePosition, isPointerDevice }) {
   const [cursorState, setCursorState] = useState({
     isHovered: false,
     cursorText: '',
-    cursorVariant: 'default' // 'default' | 'hover' | 'project' | 'view'
+    cursorVariant: 'default' // 'default' | 'hover' | 'project'
   });
+
+  // Smooth springs for fluid trailing motion
+  const springX = useSpring(mousePosition.x, { damping: 28, stiffness: 350, mass: 0.1 });
+  const springY = useSpring(mousePosition.y, { damping: 28, stiffness: 350, mass: 0.1 });
+
+  const auraX = useSpring(mousePosition.x, { damping: 45, stiffness: 180, mass: 0.4 });
+  const auraY = useSpring(mousePosition.y, { damping: 45, stiffness: 180, mass: 0.4 });
+
+  useEffect(() => {
+    springX.set(mousePosition.x);
+    springY.set(mousePosition.y);
+    auraX.set(mousePosition.x);
+    auraY.set(mousePosition.y);
+  }, [mousePosition, springX, springY, auraX, auraY]);
 
   useEffect(() => {
     if (!isPointerDevice) return;
@@ -20,7 +34,7 @@ export function CustomCursor({ mousePosition, isPointerDevice }) {
       if (projectTarget) {
         setCursorState({
           isHovered: true,
-          cursorText: 'VIEW',
+          cursorText: 'EXPLORE // ↗',
           cursorVariant: 'project'
         });
       } else if (interactiveTarget) {
@@ -45,64 +59,72 @@ export function CustomCursor({ mousePosition, isPointerDevice }) {
   if (!isPointerDevice) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 mix-blend-difference overflow-hidden">
-      {/* Central dot */}
+    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden mix-blend-screen select-none">
+      {/* 1. Fluid Ambient Trailing Aura */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-amber-400"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full bg-amber-500/20 blur-sm pointer-events-none"
         style={{
-          transform: 'translate(-50%, -50%)',
-        }}
-        animate={{
-          x: mousePosition.x,
-          y: mousePosition.y,
-          opacity: cursorState.cursorVariant === 'project' ? 0 : 1,
-          scale: cursorState.cursorVariant === 'hover' ? 0.5 : 1,
-        }}
-        transition={{
-          type: 'spring',
-          damping: 35,
-          stiffness: 400,
-          mass: 0.1,
+          x: auraX,
+          y: auraY,
+          translateX: '-50%',
+          translateY: '-50%',
         }}
       />
 
-      {/* Follower ring or pill */}
+      {/* 2. Precision Center Laser Dot */}
       <motion.div
-        className={`fixed top-0 left-0 flex items-center justify-center rounded-full border border-amber-400/80 transition-colors ${
-          cursorState.cursorVariant === 'project'
-            ? 'bg-amber-400 text-black font-mono font-bold text-[10px] tracking-widest px-3 py-1'
-            : cursorState.cursorVariant === 'hover'
-            ? 'bg-amber-400/10 border-amber-400'
-            : 'bg-transparent border-amber-400/40'
-        }`}
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-amber-400 pointer-events-none shadow-[0_0_10px_#f59e0b]"
         style={{
-          transform: 'translate(-50%, -50%)',
+          x: springX,
+          y: springY,
+          translateX: '-50%',
+          translateY: '-50%',
         }}
         animate={{
-          x: mousePosition.x,
-          y: mousePosition.y,
-          width: cursorState.cursorVariant === 'project' ? 68 : cursorState.cursorVariant === 'hover' ? 44 : 26,
-          height: cursorState.cursorVariant === 'project' ? 68 : cursorState.cursorVariant === 'hover' ? 44 : 26,
+          scale: cursorState.cursorVariant === 'hover' ? 1.5 : cursorState.cursorVariant === 'project' ? 0 : 1,
         }}
-        transition={{
-          type: 'spring',
-          damping: 24,
-          stiffness: 220,
-          mass: 0.25,
+        transition={{ duration: 0.15 }}
+      />
+
+      {/* 3. Unique Precision Reticle Frame / Corner Targeting Brackets */}
+      <motion.div
+        className="fixed top-0 left-0 flex items-center justify-center pointer-events-none"
+        style={{
+          x: springX,
+          y: springY,
+          translateX: '-50%',
+          translateY: '-50%',
         }}
+        animate={{
+          width: cursorState.cursorVariant === 'project' ? 110 : cursorState.cursorVariant === 'hover' ? 46 : 28,
+          height: cursorState.cursorVariant === 'project' ? 42 : cursorState.cursorVariant === 'hover' ? 46 : 28,
+          rotate: cursorState.cursorVariant === 'hover' ? 45 : 0,
+        }}
+        transition={{ type: 'spring', damping: 20, stiffness: 260 }}
       >
-        <AnimatePresence>
-          {cursorState.cursorText && (
-            <motion.span
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="select-none pointer-events-none text-[10px] uppercase font-bold tracking-wider"
-            >
-              {cursorState.cursorText}
-            </motion.span>
-          )}
-        </AnimatePresence>
+        {/* Reticle Brackets */}
+        {cursorState.cursorVariant !== 'project' ? (
+          <div className="relative w-full h-full">
+            {/* Top-Left Bracket */}
+            <span className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-amber-400/90 rounded-tl-sm" />
+            {/* Top-Right Bracket */}
+            <span className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-amber-400/90 rounded-tr-sm" />
+            {/* Bottom-Left Bracket */}
+            <span className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-amber-400/90 rounded-bl-sm" />
+            {/* Bottom-Right Bracket */}
+            <span className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-amber-400/90 rounded-br-sm" />
+          </div>
+        ) : (
+          /* Project Inspection Pill */
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-amber-400 text-black font-mono text-[11px] font-bold tracking-wider shadow-lg shadow-amber-400/30"
+          >
+            <span>{cursorState.cursorText}</span>
+          </motion.div>
+        )}
       </motion.div>
     </div>
   );

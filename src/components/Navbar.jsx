@@ -56,8 +56,8 @@ export function Navbar({ activeSection, mode, setMode }) {
               className="group flex items-center gap-1.5 focus:outline-none"
             >
               <span
-                className="text-xl sm:text-2xl font-black tracking-tighter text-white group-hover:text-amber-400 transition-colors"
-                style={{ fontFamily: 'Syne, sans-serif' }}
+                className="text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-amber-400 transition-colors"
+                style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
                 MOHUL
               </span>

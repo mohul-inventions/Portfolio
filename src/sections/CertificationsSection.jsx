@@ -39,7 +39,7 @@ export function CertificationsSection() {
               </div>
 
               <div className="mt-2">
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                   Programming in Java
                 </h3>
                 <p className="text-sm font-mono text-amber-400 mt-1">
@@ -87,7 +87,7 @@ export function CertificationsSection() {
                 </span>
               </div>
 
-              <h4 className="text-xl font-bold text-white mb-1" style={{ fontFamily: 'Syne, sans-serif' }}>
+              <h4 className="text-xl font-bold text-white mb-1 tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                 Hindi Course – Praveen Poorvardh
               </h4>
 
