@@ -2,16 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeader } from '../components/SectionHeader';
 import { JOURNEY } from '../data/portfolioData';
-import { GraduationCap, Flame, Eye, Layers, Compass, ArrowDown } from 'lucide-react';
+import { GraduationCap, Flame, Eye, Layers, Compass, ArrowDown, Zap, ArrowUpRight } from 'lucide-react';
 
-function getJourneyIcon(idx) {
-  switch (idx) {
-    case 0: return <GraduationCap className="w-5 h-5 text-amber-400" />;
-    case 1: return <Flame className="w-5 h-5 text-orange-400" />;
-    case 2: return <Eye className="w-5 h-5 text-cyan-400" />;
-    case 3: return <Layers className="w-5 h-5 text-emerald-400" />;
-    default: return <Compass className="w-5 h-5 text-amber-400" />;
-  }
+function getJourneyIcon(step) {
+  if (step.title.includes('CRAFT')) return <Zap className="w-5 h-5 text-amber-400" />;
+  if (step.title.includes('B.Tech')) return <GraduationCap className="w-5 h-5 text-amber-400" />;
+  if (step.title.includes('Hackathon')) return <Flame className="w-5 h-5 text-orange-400" />;
+  if (step.title.includes('Vision') || step.title.includes('AI')) return <Eye className="w-5 h-5 text-cyan-400" />;
+  if (step.title.includes('Full-Stack')) return <Layers className="w-5 h-5 text-emerald-400" />;
+  return <Compass className="w-5 h-5 text-amber-400" />;
 }
 
 export function JourneySection() {
@@ -22,7 +21,7 @@ export function JourneySection() {
           number="07"
           tag="PATHWAY"
           title="MY JOURNEY"
-          description="The progression of skills, trials under pressure, and software craftsmanship from 2024 to the present."
+          description="The progression of skills, student leadership, trials under pressure, and software craftsmanship."
         />
 
         {/* Narrative Stepper Layout */}
@@ -44,29 +43,64 @@ export function JourneySection() {
               {/* Journey Card */}
               <div className="p-6 sm:p-8 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 hover:border-zinc-700 hover:bg-zinc-900/40 transition-all duration-300">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                  <span className="text-xs font-mono font-bold tracking-widest text-amber-400 uppercase">
-                    {step.period}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono font-bold tracking-widest text-amber-400 uppercase">
+                      {step.period}
+                    </span>
+                    {step.link && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-amber-400/10 text-amber-300 border border-amber-400/20">
+                        Campus Leadership
+                      </span>
+                    )}
+                  </div>
                   <span className="text-xs font-mono text-zinc-500">
                     {step.institution}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center shrink-0">
-                    {getJourneyIcon(idx)}
+                <div className="flex items-start sm:items-center justify-between gap-4 mb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center shrink-0">
+                      {getJourneyIcon(step)}
+                    </div>
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+                        {step.title}
+                      </h3>
+                      <p className="text-xs font-mono text-zinc-400 mt-0.5">{step.role}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
-                      {step.title}
-                    </h3>
-                    <p className="text-xs font-mono text-zinc-400 mt-0.5">{step.role}</p>
-                  </div>
+
+                  {step.link && (
+                    <a
+                      href={step.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 text-xs font-mono text-zinc-300 hover:text-white transition-colors shrink-0"
+                    >
+                      <span>craft.ncamrita.in</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-amber-400" />
+                    </a>
+                  )}
                 </div>
 
                 <p className="mt-4 text-sm text-zinc-300 leading-relaxed font-sans max-w-3xl">
                   {step.description}
                 </p>
+
+                {/* Mobile Link if present */}
+                {step.link && (
+                  <div className="mt-3 sm:hidden">
+                    <a
+                      href={step.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-amber-400 hover:underline"
+                    >
+                      <span>Visit craft.ncamrita.in ↗</span>
+                    </a>
+                  </div>
+                )}
 
                 {/* Focus Areas */}
                 <div className="mt-5 pt-4 border-t border-zinc-900 flex flex-wrap gap-2">

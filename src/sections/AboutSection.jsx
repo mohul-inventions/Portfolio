@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { SectionHeader } from '../components/SectionHeader';
 import { STATS, PERSONAL_INFO } from '../data/portfolioData';
 import { SYSTEM_METRICS } from '../data/systemMetrics';
-import { Terminal, Code, Cpu, Trophy, Sparkles, ArrowRight } from 'lucide-react';
+import { Terminal, Code, Cpu, Trophy, Sparkles, ArrowRight, ArrowUpRight } from 'lucide-react';
 
 export function AboutSection({ mode }) {
   return (
@@ -56,6 +56,49 @@ export function AboutSection({ mode }) {
                 <span className="px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-400">
                   2nd Year Undergraduate
                 </span>
+              </div>
+            </div>
+
+            {/* CRAFT Club Coordinator Spotlight */}
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-zinc-950 via-zinc-900/70 to-zinc-950 border border-amber-500/30 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-bl-full pointer-events-none" />
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-400 font-mono font-bold text-xs">
+                    ⚡
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono text-amber-400 uppercase tracking-widest block font-semibold">
+                      CAMPUS LEADERSHIP // CRAFT
+                    </span>
+                    <h4 className="text-base font-bold text-white tracking-tight">
+                      Operations & Logistics Coordinator
+                    </h4>
+                  </div>
+                </div>
+
+                <a
+                  href="https://craft.ncamrita.in/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-colors self-start sm:self-auto"
+                >
+                  <span>craft.ncamrita.in</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-amber-400" />
+                </a>
+              </div>
+
+              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
+                Core student coordinator at <strong className="text-zinc-200">CRAFT</strong> (Council for Real-world Applications & Future Tech) at Amrita Vishwa Vidyapeetham. Driving event operations, venue management, and session logistics for hands-on 90-minute Build-Along cohorts.
+              </p>
+
+              <div className="mt-4 pt-3 border-t border-zinc-900 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-zinc-500">
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">ID: NC.SC.U4CSE25012</span>
+                  <span className="px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 text-amber-400">Core Team</span>
+                </div>
+                <span className="text-zinc-500">CSE DEPT • 2026 — PRESENT</span>
               </div>
             </div>
 

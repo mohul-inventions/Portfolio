@@ -270,6 +270,16 @@ export const ADDITIONAL_PROJECTS = [
     githubUrl: "https://github.com/mohul-inventions"
   },
   {
+    name: "TruthLens AI",
+    tech: "Next.js / AI / Cybersecurity",
+    category: "Cybersecurity & AI",
+    description: "Advanced cybersecurity verification and digital evidence investigation platform to combat misinformation and synthetic media.",
+    repo: "truth_lens",
+    githubUrl: "https://github.com/kalakonda-akshay/truth_lens",
+    liveDemo: "https://truthlens-5us5u9y4m-kalakonda-akshays-projects.vercel.app/",
+    badge: "CRAFT Collaborative Build"
+  },
+  {
     name: "OmniSafe-Edu",
     tech: "Web / JavaScript",
     category: "Campus Safety",
@@ -471,7 +481,32 @@ export const CERTIFICATIONS = [
   }
 ];
 
+export const CLUB_AFFILIATION = {
+  clubName: "CRAFT",
+  fullName: "Council for Real-world Applications & Future Tech",
+  department: "Department of Computer Science and Engineering",
+  institution: "Amrita Vishwa Vidyapeetham, Nagercoil Campus",
+  role: "Operations & Logistics Coordinator",
+  memberId: "NC.SC.U4CSE25012",
+  passId: "CLB-20260724-7758",
+  since: "2026",
+  website: "https://craft.ncamrita.in/",
+  focus: "Event Operations & Member Support",
+  quote: "Ensures smooth execution of every CRAFT event from planning to wrap-up. Manages logistics, supports event execution, and keeps member operations running smoothly.",
+  skills: ["Coordination", "Logistics", "Teamwork", "Event Operations"]
+};
+
 export const JOURNEY = [
+  {
+    period: "2026 — PRESENT",
+    title: "Operations & Logistics Coordinator — CRAFT Club",
+    institution: "Council for Real-world Applications & Future Tech · Amrita Vishwa Vidyapeetham",
+    role: "Core Operations Coordinator",
+    description:
+      "Serving as Operations & Logistics Coordinator for CRAFT (craft.ncamrita.in), a student-run Tech Radar in the CSE Department. Ensure smooth execution of 90-minute Build-Along workshops, event operations, venue management, and cohort workflows for 150+ student builders moving from classroom theory to shipped code.",
+    link: "https://craft.ncamrita.in/",
+    focusAreas: ["Event Operations", "Logistics", "Technical Community", "Build-Alongs"]
+  },
   {
     period: "2024 — PRESENT",
     title: "B.Tech in Computer Science Engineering",
@@ -482,12 +517,12 @@ export const JOURNEY = [
     focusAreas: ["Core CS", "Algorithm Design", "Software Architecture"]
   },
   {
-    period: "2024 — 2025",
+    period: "2024 — 2026",
     title: "High-Pressure Hackathons & Technical Competitions",
-    institution: "IIT Madras, NIT Trichy, VIT Vellore, SIH & Regional Summits",
+    institution: "IIT Madras, Saveetha SEC (Hack Hustle), NIT Trichy, VIT, SIH",
     role: "Hackathon Competitor & System Builder",
     description:
-      "Tested technical capabilities under real-world time pressure, architecting solutions like Transit Tracker and competing in SIH (Shortlisted), discovering passion for high-velocity software engineering.",
+      "Tested technical capabilities under real-world time pressure, architecting solutions like Transit Tracker, competing in SIH (Shortlisted) and Hack Hustle 2.0 (Shortlisted), discovering passion for high-velocity software engineering.",
     focusAreas: ["Rapid Prototyping", "Team Engineering", "Systems Under Pressure"]
   },
   {
