@@ -18,17 +18,29 @@ export function SectionHeader({ number, tag, title, description, align = 'left' 
         <span className="text-zinc-400">{tag}</span>
       </motion.div>
 
-      {/* Main Heading */}
-      <motion.h2
-        initial={{ opacity: 0, y: 15 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.1 }}
+      {/* Main Heading with Masked Word-by-Word Upward Reveal (Requirement 10) */}
+      <h2
         className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#f4f4f0]"
         style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
       >
-        {title}
-      </motion.h2>
+        {typeof title === 'string' ? (
+          title.split(' ').map((word, idx) => (
+            <span key={idx} className="inline-block overflow-hidden mr-[0.28em] last:mr-0 align-bottom">
+              <motion.span
+                initial={{ y: '100%', opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.08 + idx * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                className="inline-block"
+              >
+                {word}
+              </motion.span>
+            </span>
+          ))
+        ) : (
+          title
+        )}
+      </h2>
 
       {/* Optional Description */}
       {description && (

@@ -6,11 +6,9 @@ import {
   ArrowRight, 
   FileText, 
   Mail, 
-  FolderGit2, 
   Sparkles, 
   Volume2, 
   VolumeX, 
-  Command, 
   Layers, 
   Home, 
   User, 
@@ -23,6 +21,21 @@ import {
 } from 'lucide-react';
 import { Github, Linkedin } from './Icons';
 import { PERSONAL_INFO } from '../data/portfolioData';
+
+function TerminalTypewriter({ text, speed = 16 }) {
+  const [displayed, setDisplayed] = useState('');
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      index++;
+      setDisplayed(text.slice(0, index));
+      if (index >= text.length) clearInterval(interval);
+    }, speed);
+    return () => clearInterval(interval);
+  }, [text, speed]);
+
+  return <span className="whitespace-pre-line">{displayed}</span>;
+}
 
 export function CommandPalette({
   isOpen,
@@ -180,8 +193,8 @@ export function CommandPalette({
     if (cleanCmd === 'sudo hire mohul') {
       setTerminalOutput({
         type: 'hire',
-        title: 'TRANSMISSION_ACCEPTED',
-        content: `✓ Request received.\n\nMohul is ready to build.\nLet's create something meaningful.`
+        title: 'TERMINAL_SESSION // ROOT',
+        content: `> sudo hire mohul\n\nChecking candidate...\n✓ Skills verified\n✓ Projects found\n✓ Engineering mode active\n\nMohul is ready to build.`
       });
       return true;
     }
@@ -311,7 +324,7 @@ export function CommandPalette({
               </div>
               {terminalOutput.type === 'hire' ? (
                 <div className="text-emerald-400 whitespace-pre-line leading-relaxed font-semibold">
-                  {terminalOutput.content}
+                  <TerminalTypewriter text={terminalOutput.content} speed={15} />
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-zinc-400">
@@ -345,33 +358,39 @@ export function CommandPalette({
                     key={cmd.id}
                     onClick={() => cmd.action()}
                     onMouseEnter={() => setSelectedIndex(idx)}
-                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl cursor-pointer transition-all duration-150 ${
-                      isSelected
-                        ? 'bg-amber-400/10 text-amber-300 border border-amber-400/30'
-                        : 'text-zinc-300 hover:bg-zinc-900/60 border border-transparent'
-                    }`}
+                    className="relative flex items-center justify-between px-3.5 py-2.5 rounded-xl cursor-pointer transition-colors duration-150"
                   >
-                    <div className="flex items-center gap-3">
+                    {isSelected && (
+                      <motion.div
+                        layoutId="cmd-active-bg"
+                        className="absolute inset-0 bg-amber-400/10 border border-amber-400/30 rounded-xl"
+                        transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                      />
+                    )}
+
+                    <div className="relative z-10 flex items-center gap-3">
                       <div
-                        className={`w-7 h-7 rounded-lg flex items-center justify-center ${
+                        className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${
                           isSelected ? 'bg-amber-400 text-black' : 'bg-zinc-900 text-zinc-400'
                         }`}
                       >
                         <Icon className="w-3.5 h-3.5" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-xs font-medium font-sans">{cmd.label}</span>
+                        <span className={`text-xs font-medium font-sans ${isSelected ? 'text-amber-300' : 'text-zinc-300'}`}>
+                          {cmd.label}
+                        </span>
                         <span className="text-[10px] font-mono text-zinc-500 uppercase">{cmd.category}</span>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="relative z-10 flex items-center gap-2">
                       {cmd.shortcut && (
                         <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-500">
                           {cmd.shortcut}
                         </span>
                       )}
-                      <ArrowRight className={`w-3.5 h-3.5 transition-transform ${isSelected ? 'translate-x-0.5 text-amber-400' : 'text-zinc-600'}`} />
+                      <ArrowRight className={`w-3.5 h-3.5 transition-transform ${isSelected ? 'translate-x-1 text-amber-400' : 'text-zinc-600'}`} />
                     </div>
                   </div>
                 );

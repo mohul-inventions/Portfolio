@@ -1,8 +1,8 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { SectionHeader } from '../components/SectionHeader';
 import { JOURNEY } from '../data/portfolioData';
-import { GraduationCap, Flame, Eye, Layers, Compass, ArrowDown, Zap, ArrowUpRight } from 'lucide-react';
+import { GraduationCap, Flame, Eye, Layers, Compass, Zap, ArrowUpRight } from 'lucide-react';
 
 function getJourneyIcon(step) {
   if (step.title.includes('CRAFT')) return <Zap className="w-5 h-5 text-amber-400" />;
@@ -14,6 +14,13 @@ function getJourneyIcon(step) {
 }
 
 export function JourneySection() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 80%', 'end 50%']
+  });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 200, damping: 26 });
+
   return (
     <section id="journey" className="relative py-24 sm:py-32 bg-[#09090b] overflow-hidden border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,16 +31,25 @@ export function JourneySection() {
           description="The progression of skills, student leadership, trials under pressure, and software craftsmanship."
         />
 
-        {/* Narrative Stepper Layout */}
-        <div className="relative border-l border-zinc-800 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-12">
+        {/* Narrative Stepper Layout with Progressive Scroll Timeline (Requirement 21) */}
+        <div ref={containerRef} className="relative ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-12">
+          {/* Static Faint Track */}
+          <div className="absolute left-0 top-3 bottom-3 w-[2px] bg-zinc-800/80 rounded-full" />
+
+          {/* Dynamic Scroll-Progressive Active Timeline Line */}
+          <motion.div
+            style={{ scaleY }}
+            className="absolute left-0 top-3 bottom-3 w-[2px] bg-gradient-to-b from-amber-400 via-amber-500 to-amber-300 origin-top shadow-[0_0_10px_rgba(245,158,11,0.6)] rounded-full z-0"
+          />
+
           {JOURNEY.map((step, idx) => (
             <motion.div
               key={step.title}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="relative group"
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="relative group z-10"
             >
               {/* Timeline Marker Node */}
               <div className="absolute -left-[35px] sm:-left-[51px] top-1.5 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#09090b] border-2 border-zinc-700 group-hover:border-amber-400 flex items-center justify-center transition-colors">

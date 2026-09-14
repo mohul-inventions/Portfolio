@@ -62,7 +62,7 @@ export function HackathonsSection({ playClick }) {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.04 }}
+                transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
                 className="h-full"
               >
                 <TiltCard maxTilt={4} className="h-full rounded-2xl">

@@ -90,16 +90,24 @@ export function TiltCard({
           rotateY,
           transformStyle: 'preserve-3d',
         }}
+        animate={{
+          scale: isHovered ? 1.01 : 1,
+        }}
+        transition={{
+          scale: { type: 'spring', damping: 20, stiffness: 220 }
+        }}
         className="relative w-full h-full will-change-transform rounded-[inherit]"
       >
         {children}
 
-        {/* Subtle Specular Glare Overlay (hardware product sheen, no rainbow) */}
-        {glare && isHovered && (
+        {/* Subtle Specular Glare Overlay (Realistic hardware product sheen, no rainbow - Requirement 5) */}
+        {glare && (
           <div
-            className="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300 z-30"
+            className={`pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300 z-30 overflow-hidden ${
+              isHovered ? 'opacity-100' : 'opacity-0'
+            }`}
             style={{
-              background: `radial-gradient(circle 280px at ${glarePos.x}% ${glarePos.y}%, rgba(255,255,255,0.06), rgba(245,158,11,0.04) 40%, transparent 80%)`,
+              background: `radial-gradient(circle 300px at ${glarePos.x}% ${glarePos.y}%, rgba(255,255,255,0.08), rgba(245,158,11,0.03) 45%, transparent 80%)`,
               mixBlendMode: 'screen',
             }}
           />

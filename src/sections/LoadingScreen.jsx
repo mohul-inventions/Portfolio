@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export function LoadingScreen({ onComplete }) {
   const [progress, setProgress] = useState(0);
@@ -15,7 +15,7 @@ export function LoadingScreen({ onComplete }) {
 
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const next = prev + Math.floor(Math.random() * 12) + 4;
+        const next = prev + Math.floor(Math.random() * 20) + 15;
         const matching = statusSequence.find((s) => s.at <= next);
         if (matching) setStatusText(matching.text);
 
@@ -23,12 +23,12 @@ export function LoadingScreen({ onComplete }) {
           clearInterval(interval);
           setTimeout(() => {
             onComplete();
-          }, 350);
+          }, 100);
           return 100;
         }
         return next;
       });
-    }, 45);
+    }, 18);
 
     return () => clearInterval(interval);
   }, [onComplete]);

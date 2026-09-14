@@ -51,7 +51,7 @@ export function AdditionalProjects({ playClick }) {
               className="h-full"
             >
               <TiltCard maxTilt={4} className="h-full rounded-2xl">
-                <div className="group p-5 rounded-2xl bg-zinc-950/70 border border-zinc-800/70 hover:border-amber-400/40 hover:bg-zinc-900/50 transition-all duration-200 flex flex-col justify-between h-full">
+                <div data-cursor="project" className="group p-5 rounded-2xl bg-zinc-950/70 border border-zinc-800/70 hover:border-amber-400/40 hover:bg-zinc-900/50 transition-all duration-200 flex flex-col justify-between h-full">
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">

@@ -51,14 +51,21 @@ export function Navbar({
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled
-            ? 'py-3.5 bg-[#09090b]/80 backdrop-blur-xl border-b border-white/[0.06] shadow-2xl'
-            : 'py-6 bg-transparent'
+      <motion.header
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 flex justify-center ${
+          scrolled ? 'pt-2.5 sm:pt-3.5 px-3 sm:px-6' : 'pt-5 sm:pt-6 px-4 sm:px-8'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          className={`w-full max-w-7xl transition-all duration-300 ${
+            scrolled
+              ? 'px-4 sm:px-6 py-2.5 rounded-2xl bg-[#09090b]/85 backdrop-blur-xl border border-white/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.6)] scale-[0.99]'
+              : 'px-2 sm:px-4 py-1.5 bg-transparent border border-transparent'
+          }`}
+        >
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a
@@ -201,7 +208,7 @@ export function Navbar({
             </div>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Drawer Menu */}
       <AnimatePresence>

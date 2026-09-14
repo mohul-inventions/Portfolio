@@ -6,14 +6,37 @@ import { LiveClock } from '../components/LiveClock';
 import { MagneticButton } from '../components/MagneticButton';
 
 export function HeroSection({ mode, onOpenResume, playClick }) {
+  const heroRef = useRef(null);
   const canvasRef = useRef(null);
   const cardRef = useRef(null);
 
-  // 3D Perspective Tilt for the Portrait Card
+  // Multi-Layer Hero Parallax (Requirement 2)
+  const globalMouseX = useMotionValue(0);
+  const globalMouseY = useMotionValue(0);
+  const springParallax = { damping: 28, stiffness: 180, mass: 0.1 };
+
+  const bgCanvasX = useSpring(useTransform(globalMouseX, [-0.5, 0.5], [-6, 6]), springParallax);
+  const bgCanvasY = useSpring(useTransform(globalMouseY, [-0.5, 0.5], [-6, 6]), springParallax);
+  const gridX = useSpring(useTransform(globalMouseX, [-0.5, 0.5], [-10, 10]), springParallax);
+  const gridY = useSpring(useTransform(globalMouseY, [-0.5, 0.5], [-10, 10]), springParallax);
+  const textX = useSpring(useTransform(globalMouseX, [-0.5, 0.5], [-3, 3]), springParallax);
+  const visualParallaxX = useSpring(useTransform(globalMouseX, [-0.5, 0.5], [-14, 14]), springParallax);
+  const visualParallaxY = useSpring(useTransform(globalMouseY, [-0.5, 0.5], [-14, 14]), springParallax);
+
+  const handleHeroMouseMove = (e) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+    const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+    globalMouseX.set(xPct);
+    globalMouseY.set(yPct);
+  };
+
+  // 3D Perspective Tilt for the Portrait Card (max 5 degrees as specified)
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [12, -12]), { damping: 20, stiffness: 200 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), { damping: 20, stiffness: 200 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [5, -5]), { damping: 24, stiffness: 220 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-5, 5]), { damping: 24, stiffness: 220 });
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
@@ -113,32 +136,42 @@ export function HeroSection({ mode, onOpenResume, playClick }) {
   return (
     <section
       id="home"
+      ref={heroRef}
+      onMouseMove={handleHeroMouseMove}
       className="relative min-h-screen flex flex-col justify-between pt-28 pb-12 overflow-hidden bg-grid-pattern"
     >
-      {/* Dynamic interactive canvas */}
-      <canvas
+      {/* Dynamic interactive canvas with subtle parallax (Requirement 2) */}
+      <motion.canvas
         ref={canvasRef}
-        className="pointer-events-none absolute inset-0 z-0 opacity-60"
+        style={{ x: bgCanvasX, y: bgCanvasY }}
+        className="pointer-events-none absolute inset-0 z-0 opacity-60 will-change-transform"
         aria-hidden="true"
       />
 
-      {/* Ambient background glow orbs */}
-      <div className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-b from-amber-500/10 via-amber-600/5 to-transparent blur-[120px] rounded-full" />
+      {/* Ambient background glow orbs with grid parallax */}
+      <motion.div 
+        style={{ x: gridX, y: gridY }}
+        className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-b from-amber-500/10 via-amber-600/5 to-transparent blur-[120px] rounded-full will-change-transform" 
+      />
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
         
-        {/* Top Status & Identity Badges */}
+        {/* Top Status & Identity Badges - Stage 6 entrance */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.78, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-wrap items-center gap-3 mb-8"
         >
-          {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 backdrop-blur-md shadow-sm">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
+          {/* Status Badge with Organic Breathing Glow (Requirement 16) */}
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 backdrop-blur-md shadow-sm">
+            <span className="flex h-2.5 w-2.5 relative items-center justify-center">
+              <motion.span
+                animate={{ scale: [1, 2, 1], opacity: [0.5, 0, 0.5] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inline-flex h-full w-full rounded-full bg-emerald-400"
+              />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
             </span>
             <span className="text-xs font-mono tracking-wider uppercase text-zinc-300">
@@ -154,7 +187,7 @@ export function HeroSection({ mode, onOpenResume, playClick }) {
             <span>CSE 2ND YEAR</span>
           </div>
 
-          {/* Live IST Clock (Feature 7) */}
+          {/* Live IST Clock with Second-Tick Micro Animation (Requirement 17) */}
           <LiveClock className="hidden md:inline-flex" />
 
           {/* System Mode Indicator */}
@@ -174,26 +207,40 @@ export function HeroSection({ mode, onOpenResume, playClick }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
           {/* Left Column: Editorial Headline & Narrative */}
-          <div className="lg:col-span-7 xl:col-span-8">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          <motion.div style={{ x: textX }} className="lg:col-span-7 xl:col-span-8 will-change-transform">
+            {/* Stage 3: Masked Line-by-Line Editorial Headline (Requirement 10) */}
+            <h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05]"
               style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
               <span className="sr-only">C R Mohul Ram — Computer Science Engineer &amp; Full Stack Developer: </span>
-              Building ideas into <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 via-amber-200 to-amber-400">
-                digital experiences.
+              <span className="block overflow-hidden pb-1">
+                <motion.span
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  className="block"
+                >
+                  Building ideas into
+                </motion.span>
               </span>
-            </motion.h1>
+              <span className="block overflow-hidden pt-1">
+                <motion.span
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.7, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                  className="block text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 via-amber-200 to-amber-400"
+                >
+                  digital experiences.
+                </motion.span>
+              </span>
+            </h1>
 
-            {/* Supporting Statement */}
+            {/* Stage 4: Supporting Statement */}
             <motion.p
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 text-base sm:text-lg md:text-xl text-zinc-400 max-w-2xl font-normal leading-relaxed"
             >
               Computer Science Engineering student building{' '}
@@ -203,9 +250,9 @@ export function HeroSection({ mode, onOpenResume, playClick }) {
 
             {/* Technical Metadata Row */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.35 }}
+              transition={{ duration: 0.7, delay: 0.58 }}
               className="mt-6 flex flex-wrap items-center gap-2 sm:gap-2.5 text-xs sm:text-sm font-mono text-zinc-400"
             >
               <span className="text-amber-400 font-semibold">{PERSONAL_INFO.name}</span>
@@ -220,11 +267,11 @@ export function HeroSection({ mode, onOpenResume, playClick }) {
               ))}
             </motion.div>
 
-            {/* CTA Buttons with Magnetic Physics (Feature 5) */}
+            {/* Stage 5: CTA Buttons with Magnetic Physics (Requirement 14) */}
             <motion.div
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.45 }}
+              transition={{ duration: 0.7, delay: 0.68 }}
               className="mt-8 sm:mt-10 flex flex-wrap items-center gap-3 sm:gap-4"
             >
               {/* Primary CTA */}
@@ -285,14 +332,15 @@ export function HeroSection({ mode, onOpenResume, playClick }) {
                 </a>
               </MagneticButton>
             </motion.div>
-          </div>
+          </motion.div>
 
-          {/* Right Column: User Portrait Card with 3D Tilt */}
+          {/* Right Column: User Portrait Card with 3D Tilt & Parallax */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            style={{ x: visualParallaxX, y: visualParallaxY }}
+            initial={{ opacity: 0, scale: 0.95, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 xl:col-span-4 flex justify-center lg:justify-end"
+            transition={{ duration: 0.8, delay: 0.82, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 xl:col-span-4 flex justify-center lg:justify-end will-change-transform"
           >
             <div
               ref={cardRef}

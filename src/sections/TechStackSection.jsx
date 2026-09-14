@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { SectionHeader } from '../components/SectionHeader';
-import { TECH_STACK } from '../data/portfolioData';
 import { SYSTEM_METRICS } from '../data/systemMetrics';
 import { 
   Code2, 
@@ -11,7 +10,6 @@ import {
   BrainCircuit, 
   Terminal, 
   Layers, 
-  ExternalLink,
   Sparkles,
   Coffee,
   Cpu,
@@ -179,26 +177,32 @@ export function TechStackSection({ mode, playClick }) {
 
             return (
               <motion.div
-                layout
+                layout="position"
                 key={item.name}
+                whileHover={isMatch ? { y: -4, transition: { duration: 0.2 } } : {}}
                 animate={{
                   opacity: isMatch ? 1 : 0.28,
                   scale: isMatch ? 1 : 0.96,
                   filter: isMatch ? 'grayscale(0%)' : 'grayscale(60%)'
                 }}
-                transition={{ duration: 0.25 }}
+                transition={{
+                  layout: { type: 'spring', damping: 25, stiffness: 280 },
+                  duration: 0.25
+                }}
                 className={`group relative p-4 sm:p-5 rounded-2xl transition-all duration-300 flex flex-col justify-between ${
                   isMatch
-                    ? 'bg-zinc-900/40 border border-zinc-800/90 hover:border-amber-500/50 hover:bg-zinc-900/80 shadow-sm'
+                    ? 'bg-zinc-900/40 border border-zinc-800/90 hover:border-amber-400/60 hover:bg-zinc-900/80 hover:shadow-lg hover:shadow-amber-400/5'
                     : 'bg-zinc-950/30 border border-zinc-900/60'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center">
-                      {renderTechIcon(item.icon)}
+                    <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center group-hover:border-amber-400/40 transition-colors">
+                      <div className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform duration-200">
+                        {renderTechIcon(item.icon)}
+                      </div>
                     </div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400/90 px-2 py-0.5 rounded bg-amber-400/10 border border-amber-400/20">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400/90 px-2 py-0.5 rounded bg-amber-400/10 border border-amber-400/20 group-hover:border-amber-400/40 transition-colors">
                       {item.level}
                     </span>
                   </div>

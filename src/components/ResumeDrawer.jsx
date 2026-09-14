@@ -29,11 +29,10 @@ export function ResumeDrawer({ isOpen, onClose, playClick }) {
     window.print();
   };
 
-  if (!isOpen) return null;
-
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 overflow-hidden flex justify-end">
+      {isOpen && (
+        <div className="fixed inset-0 z-50 overflow-hidden flex justify-end">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -242,7 +241,8 @@ export function ResumeDrawer({ isOpen, onClose, playClick }) {
             </a>
           </div>
         </motion.aside>
-      </div>
+        </div>
+      )}
     </AnimatePresence>
   );
 }

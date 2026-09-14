@@ -53,18 +53,21 @@ export function HackerOverlay({ isActive, onClose, playClick }) {
     };
   }, [isActive, onClose]);
 
-  if (!isActive) return null;
-
   return (
     <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 overflow-hidden select-none"
-      >
-        {/* Matrix Canvas Rain */}
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full bg-black/90 pointer-events-none" />
+      {isActive && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 z-50 overflow-hidden select-none"
+        >
+          {/* Matrix Canvas Rain */}
+          <canvas ref={canvasRef} className="absolute inset-0 w-full h-full bg-black/90 pointer-events-none" />
+
+          {/* CRT Scanline Effect (Requirement 27) */}
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.35)_50%)] bg-[length:100%_4px] opacity-40 z-10" />
 
         {/* Center Alert Banner */}
         <div className="absolute inset-0 flex items-center justify-center p-4">
@@ -107,7 +110,8 @@ export function HackerOverlay({ isActive, onClose, playClick }) {
             </div>
           </motion.div>
         </div>
-      </motion.div>
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 }
