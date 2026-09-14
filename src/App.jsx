@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import { useMousePosition } from './hooks/useMousePosition';
 import { useScrollSpy } from './hooks/useScrollSpy';
+import { useSoundFX } from './hooks/useSoundFX';
+import { useKonamiCode } from './hooks/useKonamiCode';
 
 // Components
 import { Navbar } from './components/Navbar';
 import { CustomCursor } from './components/CustomCursor';
 import { AmbientGlow } from './components/AmbientGlow';
 import { NoiseOverlay } from './components/NoiseOverlay';
+import { CommandPalette } from './components/CommandPalette';
+import { ResumeDrawer } from './components/ResumeDrawer';
+import { HackerOverlay } from './components/HackerOverlay';
 
 // Sections
 import { LoadingScreen } from './sections/LoadingScreen';
@@ -29,9 +34,18 @@ const SECTION_IDS = ['home', 'about', 'skills', 'projects', 'hackathons', 'journ
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [mode, setMode] = useState('human'); // 'human' | 'system'
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [isMatrixActive, setIsMatrixActive] = useState(false);
 
   const { mousePosition, isPointerDevice } = useMousePosition();
   const activeSection = useScrollSpy(SECTION_IDS, 140);
+  const { soundEnabled, toggleSound, playClick, playOpen, playMode } = useSoundFX();
+
+  // Konami Code Easter Egg (↑ ↑ ↓ ↓ ← → ← → B A)
+  const { isHackerMode, deactivate: deactivateHackerMode } = useKonamiCode(() => {
+    if (soundEnabled) playMode();
+  });
 
   // Smooth scroll progress bar at top of viewport
   const { scrollYProgress } = useScroll();
@@ -47,13 +61,17 @@ export default function App() {
       // Don't toggle if user is typing in an input or textarea
       if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
       if (e.key === 's' || e.key === 'S') {
-        setMode((prev) => (prev === 'human' ? 'system' : 'human'));
+        setMode((prev) => {
+          const next = prev === 'human' ? 'system' : 'human';
+          if (soundEnabled) playMode();
+          return next;
+        });
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [soundEnabled, playMode]);
 
   return (
     <div className="relative min-h-screen bg-[#09090b] text-[#f4f4f0] font-sans selection:bg-amber-500/30 selection:text-amber-200">
@@ -81,27 +99,72 @@ export default function App() {
       {!isLoading && (
         <div className="flex flex-col min-h-screen">
           {/* Sticky Navigation */}
-          <Navbar activeSection={activeSection} mode={mode} setMode={setMode} />
+          <Navbar 
+            activeSection={activeSection} 
+            mode={mode} 
+            setMode={setMode}
+            onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+            onOpenResume={() => setIsResumeOpen(true)}
+            soundEnabled={soundEnabled}
+            toggleSound={toggleSound}
+            playClick={playClick}
+          />
 
           {/* Section Storyline Flow */}
           <main className="flex-1">
-            <HeroSection mode={mode} />
-            <AboutSection mode={mode} />
-            <TechStackSection mode={mode} />
-            <FeaturedProjects mode={mode} />
-            <AdditionalProjects />
-            <HackathonsSection />
-            <JourneySection />
-            <CertificationsSection />
-            <GithubSection />
-            <CreativeSection />
-            <ContactSection />
+            <HeroSection 
+              mode={mode} 
+              onOpenResume={() => setIsResumeOpen(true)}
+              playClick={playClick}
+            />
+            <AboutSection mode={mode} playClick={playClick} />
+            <TechStackSection mode={mode} playClick={playClick} />
+            <FeaturedProjects mode={mode} playClick={playClick} />
+            <AdditionalProjects playClick={playClick} />
+            <HackathonsSection playClick={playClick} />
+            <JourneySection playClick={playClick} />
+            <CertificationsSection playClick={playClick} />
+            <GithubSection playClick={playClick} />
+            <CreativeSection playClick={playClick} />
+            <ContactSection playClick={playClick} />
           </main>
 
           {/* Footer */}
-          <Footer />
+          <Footer onOpenResume={() => setIsResumeOpen(true)} playClick={playClick} />
         </div>
       )}
+
+      {/* Command Palette Modal (Cmd+K / Ctrl+K) */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        mode={mode}
+        setMode={setMode}
+        soundEnabled={soundEnabled}
+        toggleSound={toggleSound}
+        playClick={playClick}
+        playOpen={playOpen}
+        onOpenResume={() => setIsResumeOpen(true)}
+        onTriggerMatrix={() => setIsMatrixActive(true)}
+      />
+
+      {/* Quick Dossier / Resume Slide-over Drawer */}
+      <ResumeDrawer
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+        playClick={playClick}
+      />
+
+      {/* Konami Code & Command Palette Matrix Easter Egg Overlay */}
+      <HackerOverlay
+        isActive={isHackerMode || isMatrixActive}
+        onClose={() => {
+          deactivateHackerMode();
+          setIsMatrixActive(false);
+        }}
+        playClick={playClick}
+      />
     </div>
   );
 }
+

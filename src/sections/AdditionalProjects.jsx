@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeader } from '../components/SectionHeader';
 import { ADDITIONAL_PROJECTS, PERSONAL_INFO } from '../data/portfolioData';
-import { ArrowUpRight, FolderGit2, Search, Filter } from 'lucide-react';
+import { ArrowUpRight, FolderGit2, Search } from 'lucide-react';
 import { Github } from '../components/Icons';
+import { TiltCard } from '../components/TiltCard';
 
-export function AdditionalProjects() {
+export function AdditionalProjects({ playClick }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredProjects = ADDITIONAL_PROJECTS.filter((p) =>
@@ -38,7 +39,7 @@ export function AdditionalProjects() {
           </div>
         </div>
 
-        {/* High-Density Responsive Table/Grid */}
+        {/* High-Density Responsive Table/Grid with 3D Tilt */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredProjects.map((project, idx) => (
             <motion.div
@@ -46,9 +47,11 @@ export function AdditionalProjects() {
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              className="group p-5 rounded-2xl bg-zinc-950/60 border border-zinc-800/70 hover:border-amber-400/40 hover:bg-zinc-900/50 transition-all duration-200 flex flex-col justify-between"
+              transition={{ duration: 0.4, delay: idx * 0.04 }}
+              className="h-full"
             >
+              <TiltCard maxTilt={4} className="h-full rounded-2xl">
+                <div className="group p-5 rounded-2xl bg-zinc-950/70 border border-zinc-800/70 hover:border-amber-400/40 hover:bg-zinc-900/50 transition-all duration-200 flex flex-col justify-between h-full">
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
@@ -93,6 +96,8 @@ export function AdditionalProjects() {
                   <span>Repo</span>
                 </a>
               </div>
+                </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

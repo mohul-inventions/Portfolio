@@ -3,7 +3,7 @@ import { PERSONAL_INFO } from '../data/portfolioData';
 import { ArrowUp, Mail, Heart } from 'lucide-react';
 import { Github, Linkedin } from '../components/Icons';
 
-export function Footer() {
+export function Footer({ onOpenResume, playClick }) {
   const [currentTime, setCurrentTime] = useState('');
 
   useEffect(() => {
@@ -48,6 +48,17 @@ export function Footer() {
 
           {/* Social Links */}
           <div className="flex items-center gap-6">
+            {onOpenResume && (
+              <button
+                onClick={() => {
+                  if (playClick) playClick();
+                  onOpenResume();
+                }}
+                className="hover:text-amber-400 transition-colors cursor-pointer"
+              >
+                Dossier / CV
+              </button>
+            )}
             <a
               href={PERSONAL_INFO.github}
               target="_blank"

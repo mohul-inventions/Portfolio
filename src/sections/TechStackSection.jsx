@@ -32,12 +32,45 @@ import {
 import { Github } from '../components/Icons';
 
 const CATEGORIES = [
-  { id: 'all', label: 'All Technologies', icon: Sparkles },
-  { id: 'languages', label: 'Languages', icon: Code2 },
+  { id: 'all', label: 'All Stack', icon: Sparkles },
+  { id: 'aiml', label: 'AI / ML', icon: BrainCircuit },
   { id: 'frontend', label: 'Frontend', icon: Layout },
-  { id: 'backend', label: 'Backend / Database', icon: Server },
-  { id: 'tools', label: 'Tools & DevOps', icon: Wrench },
-  { id: 'concepts', label: 'CS Concepts', icon: BrainCircuit }
+  { id: 'backend', label: 'Backend', icon: Server },
+  { id: 'languages', label: 'Languages', icon: Code2 },
+  { id: 'database', label: 'Database', icon: Database },
+  { id: 'tools', label: 'Tools', icon: Wrench },
+];
+
+const ENRICHED_TECH_STACK = [
+  // AI / ML
+  { name: 'YOLOv8', level: 'Computer Vision', icon: 'Terminal', note: 'Real-time Detection', categories: ['aiml', 'tools'], linkedProject: 'AI Smart Traffic' },
+  { name: 'OpenCV', level: 'Image Processing', icon: 'Cpu', note: 'Computer Vision', categories: ['aiml'], linkedProject: 'AI Smart Traffic' },
+  { name: 'Python', level: 'Basics / ML', icon: 'Terminal', note: 'OpenCV, YOLOv8', categories: ['languages', 'aiml'], linkedProject: 'AI Smart Traffic' },
+
+  // Languages
+  { name: 'Java', level: 'Proficient', icon: 'Coffee', note: 'NPTEL Elite Gold', categories: ['languages'], linkedProject: 'Academic Systems' },
+  { name: 'C', level: 'Foundations', icon: 'Cpu', note: 'Low-level Systems', categories: ['languages'], linkedProject: 'Core Systems' },
+  { name: 'C++', level: 'Algorithms', icon: 'Boxes', note: 'OOP & Data Structures', categories: ['languages'], linkedProject: 'Algorithmic Builds' },
+  { name: 'JavaScript', level: 'Proficient', icon: 'Code2', note: 'ES6+, Async, DOM', categories: ['languages', 'frontend'], linkedProject: 'Make Insure' },
+
+  // Frontend
+  { name: 'React', level: 'Proficient', icon: 'Atom', note: 'Hooks, SPA, State', categories: ['frontend'], linkedProject: 'Make Insure / Portfolio' },
+  { name: 'Tailwind CSS', level: 'Proficient', icon: 'Wind', note: 'Modern Utility-First', categories: ['frontend'], linkedProject: 'All UI Systems' },
+  { name: 'HTML5', level: 'Advanced', icon: 'Layout', note: 'Semantic Structure', categories: ['frontend'], linkedProject: 'Web Standards' },
+  { name: 'CSS3', level: 'Advanced', icon: 'Palette', note: 'Modern layouts & FX', categories: ['frontend'], linkedProject: 'UI & Motion' },
+
+  // Backend
+  { name: 'Node.js', level: 'Proficient', icon: 'Server', note: 'Express, APIs, Auth', categories: ['backend'], linkedProject: 'Make Insure Backend' },
+
+  // Database
+  { name: 'MongoDB', level: 'Proficient', icon: 'Database', note: 'NoSQL, Mongoose', categories: ['database', 'backend'], linkedProject: 'Make Insure Store' },
+  { name: 'MySQL', level: 'Proficient', icon: 'HardDrive', note: 'Relational Schemas', categories: ['database', 'backend'], linkedProject: 'Relational Records' },
+
+  // Tools
+  { name: 'Git', level: 'Essential', icon: 'GitBranch', note: 'Version Control', categories: ['tools'], linkedProject: 'All Repositories' },
+  { name: 'GitHub', level: 'Workflow', icon: 'Github', note: 'Open Source & CI', categories: ['tools'], linkedProject: 'mohul-inventions' },
+  { name: 'VS Code', level: 'Primary IDE', icon: 'FileCode', note: 'Developer Tooling', categories: ['tools'], linkedProject: 'Daily Dev' },
+  { name: 'Vercel', level: 'Deployment', icon: 'Cloud', note: 'Edge Hosting & CI/CD', categories: ['tools'], linkedProject: 'Live Deployments' }
 ];
 
 // Helper to render relevant Lucide icon
@@ -68,23 +101,8 @@ function renderTechIcon(iconName) {
   }
 }
 
-export function TechStackSection({ mode }) {
+export function TechStackSection({ mode, playClick }) {
   const [activeCategory, setActiveCategory] = useState('all');
-
-  const getAllItems = () => {
-    return [
-      ...TECH_STACK.languages.map((item) => ({ ...item, category: 'languages' })),
-      ...TECH_STACK.frontend.map((item) => ({ ...item, category: 'frontend' })),
-      ...TECH_STACK.backend.map((item) => ({ ...item, category: 'backend' })),
-      ...TECH_STACK.tools.map((item) => ({ ...item, category: 'tools' })),
-      ...TECH_STACK.concepts.map((item) => ({ ...item, category: 'concepts' }))
-    ];
-  };
-
-  const filteredItems =
-    activeCategory === 'all'
-      ? getAllItems()
-      : TECH_STACK[activeCategory]?.map((item) => ({ ...item, category: activeCategory })) || [];
 
   return (
     <section id="skills" className="relative py-24 sm:py-32 bg-[#09090b] overflow-hidden border-t border-zinc-900">
@@ -125,7 +143,7 @@ export function TechStackSection({ mode }) {
           </motion.div>
         )}
 
-        {/* Category Filter Pills */}
+        {/* Category Filter Pills (Feature 11 spec) */}
         <div className="flex flex-wrap items-center gap-2 mb-10">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
@@ -134,10 +152,13 @@ export function TechStackSection({ mode }) {
             return (
               <button
                 key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => {
+                  if (playClick) playClick();
+                  setActiveCategory(cat.id);
+                }}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono tracking-wider uppercase transition-all duration-200 cursor-pointer ${
                   isSelected
-                    ? 'bg-amber-400 text-black font-semibold shadow-lg shadow-amber-400/20'
+                    ? 'bg-amber-400 text-black font-semibold shadow-lg shadow-amber-400/20 scale-[1.02]'
                     : 'bg-zinc-900/80 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-800/80'
                 }`}
               >
@@ -148,21 +169,29 @@ export function TechStackSection({ mode }) {
           })}
         </div>
 
-        {/* Interactive Skills Grid */}
+        {/* Interactive Skills Grid with Stagger & Soft Muting (Feature 11 spec) */}
         <motion.div
           layout
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4"
         >
-          <AnimatePresence>
-            {filteredItems.map((item) => (
+          {ENRICHED_TECH_STACK.map((item) => {
+            const isMatch = activeCategory === 'all' || item.categories.includes(activeCategory);
+
+            return (
               <motion.div
                 layout
                 key={item.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                className="group relative p-4 sm:p-5 rounded-2xl bg-zinc-900/30 border border-zinc-800/80 hover:border-amber-500/40 hover:bg-zinc-900/80 transition-all duration-300 flex flex-col justify-between"
+                animate={{
+                  opacity: isMatch ? 1 : 0.28,
+                  scale: isMatch ? 1 : 0.96,
+                  filter: isMatch ? 'grayscale(0%)' : 'grayscale(60%)'
+                }}
+                transition={{ duration: 0.25 }}
+                className={`group relative p-4 sm:p-5 rounded-2xl transition-all duration-300 flex flex-col justify-between ${
+                  isMatch
+                    ? 'bg-zinc-900/40 border border-zinc-800/90 hover:border-amber-500/50 hover:bg-zinc-900/80 shadow-sm'
+                    : 'bg-zinc-950/30 border border-zinc-900/60'
+                }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
@@ -180,12 +209,12 @@ export function TechStackSection({ mode }) {
                 </div>
 
                 <div className="mt-3 pt-3 border-t border-zinc-800/60 flex items-center justify-between text-[11px] font-mono text-zinc-500">
-                  <span className="truncate">{item.note}</span>
+                  <span className="truncate" title={`Linked build: ${item.linkedProject}`}>{item.note}</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-amber-400 transition-colors shrink-0" />
                 </div>
               </motion.div>
-            ))}
-          </AnimatePresence>
+            );
+          })}
         </motion.div>
 
         {/* Subtle Horizontal Tech Marquee */}

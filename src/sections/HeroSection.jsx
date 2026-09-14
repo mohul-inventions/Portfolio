@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, Sparkles, Terminal, MapPin, Code2, ShieldCheck } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Sparkles, Terminal, MapPin, Code2, ShieldCheck, FileText } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { LiveClock } from '../components/LiveClock';
+import { MagneticButton } from '../components/MagneticButton';
 
-export function HeroSection({ mode }) {
+export function HeroSection({ mode, onOpenResume, playClick }) {
   const canvasRef = useRef(null);
   const cardRef = useRef(null);
 
@@ -134,13 +136,13 @@ export function HeroSection({ mode }) {
           className="flex flex-wrap items-center gap-3 mb-8"
         >
           {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 backdrop-blur-md shadow-sm">
             <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
             </span>
             <span className="text-xs font-mono tracking-wider uppercase text-zinc-300">
-              AVAILABLE FOR OPPORTUNITIES
+              AVAILABLE FOR INTERNSHIPS &amp; AI BUILDS
             </span>
           </div>
 
@@ -151,6 +153,9 @@ export function HeroSection({ mode }) {
             <span className="text-zinc-600">•</span>
             <span>CSE 2ND YEAR</span>
           </div>
+
+          {/* Live IST Clock (Feature 7) */}
+          <LiveClock className="hidden md:inline-flex" />
 
           {/* System Mode Indicator */}
           {mode === 'system' && (
@@ -215,42 +220,70 @@ export function HeroSection({ mode }) {
               ))}
             </motion.div>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons with Magnetic Physics (Feature 5) */}
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.45 }}
-              className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4"
+              className="mt-8 sm:mt-10 flex flex-wrap items-center gap-3 sm:gap-4"
             >
               {/* Primary CTA */}
-              <button
-                onClick={() => scrollToSection('projects')}
-                className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 bg-amber-400 hover:bg-amber-300 text-black font-semibold text-sm rounded-xl transition-all duration-200 shadow-xl shadow-amber-400/20 hover:shadow-amber-400/30 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
-              >
-                <span>Explore My Work</span>
-                <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-              </button>
+              <MagneticButton strength={0.25}>
+                <button
+                  onClick={() => {
+                    if (playClick) playClick();
+                    scrollToSection('projects');
+                  }}
+                  className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 bg-amber-400 hover:bg-amber-300 text-black font-semibold text-sm rounded-xl transition-all duration-200 shadow-xl shadow-amber-400/20 hover:shadow-amber-400/30 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                >
+                  <span>Explore My Work</span>
+                  <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                </button>
+              </MagneticButton>
+
+              {/* Dossier / Resume Quick Trigger */}
+              {onOpenResume && (
+                <MagneticButton strength={0.22}>
+                  <button
+                    onClick={() => {
+                      if (playClick) playClick();
+                      onOpenResume();
+                    }}
+                    className="inline-flex items-center gap-2 px-5 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-amber-400 hover:text-amber-300 font-medium text-sm rounded-xl border border-amber-500/30 hover:border-amber-400/60 transition-all duration-200 cursor-pointer shadow-sm font-mono"
+                  >
+                    <FileText className="w-4 h-4 text-amber-400" />
+                    <span>View Dossier</span>
+                  </button>
+                </MagneticButton>
+              )}
 
               {/* Secondary CTA */}
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="inline-flex items-center gap-2 px-5 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 hover:text-white font-medium text-sm rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer"
-              >
-                <span>Let's Connect</span>
-                <Sparkles className="w-4 h-4 text-amber-400" />
-              </button>
+              <MagneticButton strength={0.2}>
+                <button
+                  onClick={() => {
+                    if (playClick) playClick();
+                    scrollToSection('contact');
+                  }}
+                  className="inline-flex items-center gap-2 px-5 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 hover:text-white font-medium text-sm rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all duration-200 cursor-pointer"
+                >
+                  <span>Let's Connect</span>
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                </button>
+              </MagneticButton>
 
               {/* GitHub Outlink */}
-              <a
-                href={PERSONAL_INFO.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-3.5 text-zinc-400 hover:text-zinc-100 font-mono text-xs uppercase tracking-wider transition-colors"
-              >
-                <Code2 className="w-4 h-4 text-amber-400" />
-                <span>View GitHub</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
-              </a>
+              <MagneticButton strength={0.18}>
+                <a
+                  href={PERSONAL_INFO.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-3.5 text-zinc-400 hover:text-zinc-100 font-mono text-xs uppercase tracking-wider transition-colors"
+                >
+                  <Code2 className="w-4 h-4 text-amber-400" />
+                  <span>View GitHub</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
+                </a>
+              </MagneticButton>
             </motion.div>
           </div>
 

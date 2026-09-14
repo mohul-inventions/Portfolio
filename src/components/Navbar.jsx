@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Search, Volume2, VolumeX, FileText } from 'lucide-react';
 import { Github } from './Icons';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { SystemModeToggle } from './SystemModeToggle';
+import { MagneticButton } from './MagneticButton';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '#home' },
@@ -15,7 +16,16 @@ const NAV_ITEMS = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export function Navbar({ activeSection, mode, setMode }) {
+export function Navbar({ 
+  activeSection, 
+  mode, 
+  setMode, 
+  onOpenCommandPalette, 
+  onOpenResume, 
+  soundEnabled, 
+  toggleSound,
+  playClick 
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -30,6 +40,7 @@ export function Navbar({ activeSection, mode, setMode }) {
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
+    if (playClick) playClick();
     setMobileMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
@@ -98,24 +109,86 @@ export function Navbar({ activeSection, mode, setMode }) {
               })}
             </nav>
 
-            {/* Right Side: System Mode Toggle & GitHub */}
-            <div className="hidden sm:flex items-center gap-3">
+            {/* Right Side: Command Palette, Sound FX, System Mode, Resume & GitHub */}
+            <div className="hidden sm:flex items-center gap-2.5">
+              {/* Command Palette Trigger */}
+              <button
+                onClick={() => {
+                  if (playClick) playClick();
+                  onOpenCommandPalette();
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/60 rounded-full transition-all duration-200 cursor-pointer group"
+                title="Open Command Palette (Cmd+K / Ctrl+K)"
+              >
+                <Search className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
+                <kbd className="px-1.5 py-0.5 bg-zinc-800 border border-zinc-700 rounded text-[10px] text-zinc-400 font-mono">
+                  ⌘K
+                </kbd>
+              </button>
+
+              {/* Sound FX Toggle */}
+              <button
+                onClick={() => {
+                  toggleSound();
+                  if (playClick) playClick();
+                }}
+                className="p-2 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/60 text-zinc-400 hover:text-amber-400 transition-colors cursor-pointer"
+                title={soundEnabled ? "Mute UI Sound FX" : "Enable Subtle UI Sound FX"}
+                aria-label="Toggle UI Audio"
+              >
+                {soundEnabled ? (
+                  <Volume2 className="w-3.5 h-3.5 text-amber-400" />
+                ) : (
+                  <VolumeX className="w-3.5 h-3.5 text-zinc-500" />
+                )}
+              </button>
+
+              {/* System Diagnostics Mode Toggle */}
               <SystemModeToggle mode={mode} setMode={setMode} />
 
-              <a
-                href={PERSONAL_INFO.github}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1 px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider text-zinc-300 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/60 rounded-full transition-all duration-200 group"
-              >
-                <Github className="w-3.5 h-3.5 text-amber-400" />
-                <span>GitHub</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
+              {/* Quick Dossier / Resume Trigger */}
+              <MagneticButton strength={0.2}>
+                <button
+                  onClick={() => {
+                    if (playClick) playClick();
+                    onOpenResume();
+                  }}
+                  className="flex items-center gap-1 px-3 py-1.5 text-xs font-mono uppercase tracking-wider text-amber-400 hover:text-black bg-amber-400/10 hover:bg-amber-400 border border-amber-400/30 rounded-full transition-all duration-200 cursor-pointer font-semibold"
+                  title="View Engineering Dossier / Resume"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>Dossier</span>
+                </button>
+              </MagneticButton>
+
+              {/* GitHub Link */}
+              <MagneticButton strength={0.2}>
+                <a
+                  href={PERSONAL_INFO.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1 px-3 py-1.5 text-xs font-mono uppercase tracking-wider text-zinc-300 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/60 rounded-full transition-all duration-200 group"
+                >
+                  <Github className="w-3.5 h-3.5 text-amber-400" />
+                  <span>GitHub</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              </MagneticButton>
             </div>
 
-            {/* Mobile Actions: System Toggle + Hamburger Button */}
+            {/* Mobile Actions: Search + System Toggle + Hamburger Button */}
             <div className="flex sm:hidden items-center gap-2">
+              <button
+                onClick={() => {
+                  if (playClick) playClick();
+                  onOpenCommandPalette();
+                }}
+                className="p-2 text-zinc-400 hover:text-white rounded-lg bg-zinc-900/90 border border-zinc-800"
+                aria-label="Open Command Search"
+              >
+                <Search className="w-4 h-4 text-amber-400" />
+              </button>
+
               <SystemModeToggle mode={mode} setMode={setMode} />
 
               <button
@@ -151,6 +224,18 @@ export function Navbar({ activeSection, mode, setMode }) {
                   {item.label}
                 </a>
               ))}
+
+              {/* Mobile Quick Dossier Trigger */}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenResume();
+                }}
+                className="flex items-center gap-2 px-4 py-2.5 text-sm font-mono uppercase tracking-wider text-amber-400 hover:bg-zinc-900/80 rounded-lg transition-colors text-left"
+              >
+                <FileText className="w-4 h-4" />
+                <span>View Quick Dossier / Resume</span>
+              </button>
               
               <div className="pt-3 mt-2 border-t border-zinc-800 flex items-center justify-between px-2">
                 <a
@@ -173,3 +258,4 @@ export function Navbar({ activeSection, mode, setMode }) {
     </>
   );
 }
+
