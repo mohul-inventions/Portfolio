@@ -177,6 +177,7 @@ export function HeroSection({ mode }) {
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05]"
               style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
+              <span className="sr-only">C R Mohul Ram — Computer Science Engineer &amp; Full Stack Developer: </span>
               Building ideas into <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-100 via-amber-200 to-amber-400">
                 digital experiences.
@@ -282,7 +283,11 @@ export function HeroSection({ mode }) {
                 <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-zinc-900">
                   <img
                     src="/mohul-ram.jpg"
-                    alt="C R Mohul Ram"
+                    alt="C R Mohul Ram - Computer Science Engineering Student and Full Stack Developer"
+                    width="640"
+                    height="800"
+                    loading="eager"
+                    fetchPriority="high"
                     className="w-full h-full object-cover object-center grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                   />
 

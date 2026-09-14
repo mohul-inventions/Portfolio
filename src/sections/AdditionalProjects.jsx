@@ -15,7 +15,7 @@ export function AdditionalProjects() {
   );
 
   return (
-    <section className="relative py-20 sm:py-28 bg-[#09090b] overflow-hidden border-t border-zinc-900">
+    <section id="experiments" aria-label="More Builds and Prototypes" className="relative py-20 sm:py-28 bg-[#09090b] overflow-hidden border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-6">
           <SectionHeader

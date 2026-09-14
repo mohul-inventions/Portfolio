@@ -17,7 +17,7 @@ function getInterestIcon(iconName) {
 
 export function CreativeSection() {
   return (
-    <section className="relative py-24 sm:py-32 bg-[#09090b] overflow-hidden border-t border-zinc-900">
+    <section id="interests" aria-label="Perspectives and Creative Interests" className="relative py-24 sm:py-32 bg-[#09090b] overflow-hidden border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           number="09"

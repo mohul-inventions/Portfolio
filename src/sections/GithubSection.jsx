@@ -41,7 +41,7 @@ export function GithubSection() {
   }, []);
 
   return (
-    <section className="relative py-24 sm:py-32 bg-[#09090b] overflow-hidden border-t border-zinc-900">
+    <section id="github" aria-label="Open Source Builds and GitHub Activity" className="relative py-24 sm:py-32 bg-[#09090b] overflow-hidden border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           number="08"

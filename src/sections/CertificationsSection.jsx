@@ -6,7 +6,7 @@ import { Award, CheckCircle, Sparkles, BookOpen, ShieldCheck } from 'lucide-reac
 
 export function CertificationsSection() {
   return (
-    <section className="relative py-20 sm:py-28 bg-[#09090b] overflow-hidden border-t border-zinc-900">
+    <section id="certifications" aria-label="Certifications and Academic Credentials" className="relative py-20 sm:py-28 bg-[#09090b] overflow-hidden border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           number="06"
