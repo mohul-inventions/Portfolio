@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://mohul-portfolio.vercel.app/sitemap.xml
+Sitemap: https://portfolio-eumk.vercel.app/sitemap.xml
