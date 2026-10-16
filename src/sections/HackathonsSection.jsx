@@ -32,7 +32,7 @@ export function HackathonsSection({ playClick }) {
               </span>
               <div>
                 <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold">
-                  NATIONAL RECOGNITION // 2024
+                  NATIONAL RECOGNITION // 2025
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                   Smart India Hackathon (SIH)

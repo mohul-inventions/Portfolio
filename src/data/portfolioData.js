@@ -360,7 +360,7 @@ export const HACKATHONS = [
     organizer: "Govt. of India / MoE",
     status: "Shortlisted",
     badgeType: "shortlisted",
-    year: "2024",
+    year: "2025",
     highlight: "Nationwide innovation initiative solving real-world civic challenges",
     category: "National Hackathon"
   },
@@ -380,7 +380,7 @@ export const HACKATHONS = [
     organizer: "Gyan Ganga Institute of Tech & Sciences",
     status: "Shortlisted & Participant",
     badgeType: "shortlisted",
-    year: "2024",
+    year: "2026",
     highlight: "Open-source toolchains and developer ecosystem sprint; shortlisted and participated in high-velocity challenge",
     category: "Open Source Hackathon"
   },
@@ -390,7 +390,7 @@ export const HACKATHONS = [
     organizer: "IIT Madras",
     status: "Participant",
     badgeType: "participant",
-    year: "2024",
+    year: "2026",
     highlight: "Built Transit Tracker tackling transport safety, road hazards, and commuter routing",
     category: "Safety & Mobility"
   },
@@ -410,7 +410,7 @@ export const HACKATHONS = [
     organizer: "VIT / Technical Forum",
     status: "Participant",
     badgeType: "participant",
-    year: "2025",
+    year: "2026",
     highlight: "Flagship competitive hackathon building rapid product prototypes under time pressure",
     category: "Hackathon"
   },
@@ -420,7 +420,7 @@ export const HACKATHONS = [
     organizer: "IIT Mandi",
     status: "Participant",
     badgeType: "participant",
-    year: "2024",
+    year: "2026",
     highlight: "Exploratory data analysis and predictive pattern evaluation",
     category: "Technical Event"
   },
@@ -430,7 +430,7 @@ export const HACKATHONS = [
     organizer: "PSG Institutions",
     status: "Participant",
     badgeType: "participant",
-    year: "2024",
+    year: "2026",
     highlight: "Prototyping software solutions for regional community and industry challenges",
     category: "Hackathon"
   },
@@ -440,7 +440,7 @@ export const HACKATHONS = [
     organizer: "District Technology Forum",
     status: "Participant",
     badgeType: "participant",
-    year: "2024",
+    year: "2025",
     highlight: "Rapid technological prototyping sprint focused on localized solutions",
     category: "Hackathon"
   },
@@ -450,7 +450,7 @@ export const HACKATHONS = [
     organizer: "PSNA College of Engg & Tech",
     status: "Participant",
     badgeType: "participant",
-    year: "2024",
+    year: "2026",
     highlight: "Ideation, technical feasibility pitch, and engineering architecture defense",
     category: "Ideathon"
   }
