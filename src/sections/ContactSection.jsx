@@ -14,7 +14,7 @@ import {
   Sparkles,
   Terminal
 } from 'lucide-react';
-import { Github, Linkedin } from '../components/Icons';
+import { Github, Linkedin, Youtube } from '../components/Icons';
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
@@ -149,12 +149,12 @@ export function ContactSection() {
               </div>
 
               {/* Social Channels */}
-              <div className="mt-8 pt-6 border-t border-zinc-900 flex flex-wrap gap-3">
+              <div className="mt-8 pt-6 border-t border-zinc-900 flex flex-wrap gap-2.5">
                 <a
                   href={PERSONAL_INFO.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs font-mono text-zinc-200 border border-zinc-800 hover:border-amber-400/40 transition-colors"
+                  className="flex-1 min-w-[120px] inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs font-mono text-zinc-200 border border-zinc-800 hover:border-amber-400/40 transition-colors"
                 >
                   <Linkedin className="w-4 h-4 text-amber-400" />
                   <span>LinkedIn ↗</span>
@@ -164,11 +164,23 @@ export function ContactSection() {
                   href={PERSONAL_INFO.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs font-mono text-zinc-200 border border-zinc-800 hover:border-amber-400/40 transition-colors"
+                  className="flex-1 min-w-[120px] inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs font-mono text-zinc-200 border border-zinc-800 hover:border-amber-400/40 transition-colors"
                 >
                   <Github className="w-4 h-4 text-amber-400" />
                   <span>GitHub ↗</span>
                 </a>
+
+                {PERSONAL_INFO.youtube && (
+                  <a
+                    href={PERSONAL_INFO.youtube}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 min-w-[120px] inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs font-mono text-zinc-200 border border-zinc-800 hover:border-red-400/40 transition-colors"
+                  >
+                    <Youtube className="w-4 h-4 text-red-400" />
+                    <span>YouTube ↗</span>
+                  </a>
+                )}
               </div>
             </div>
           </motion.div>

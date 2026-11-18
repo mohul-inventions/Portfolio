@@ -34,6 +34,7 @@ export function Footer({ onOpenResume, playClick }) {
     ...(onOpenResume ? [{ label: 'Dossier / CV', action: onOpenResume, isButton: true }] : []),
     { label: 'GitHub', href: PERSONAL_INFO.github },
     { label: 'LinkedIn', href: PERSONAL_INFO.linkedin },
+    ...(PERSONAL_INFO.youtube ? [{ label: 'YouTube', href: PERSONAL_INFO.youtube }] : []),
     { label: 'Email', href: `mailto:${PERSONAL_INFO.email}` }
   ];
 

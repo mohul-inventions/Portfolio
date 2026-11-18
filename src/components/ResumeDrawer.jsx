@@ -112,8 +112,34 @@ export function ResumeDrawer({ isOpen, onClose, playClick }) {
                 Amrita Vishwa Vidyapeetham — Nagercoil Campus, Tamil Nadu
               </p>
               <div className="mt-2 flex items-center justify-between text-[11px] font-mono text-zinc-500">
-                <span>Undergraduate (2024 – 2028)</span>
-                <span className="text-emerald-400 font-medium">Currently Pursuing (2nd Year)</span>
+                <span>Undergraduate (2025 – 2029)</span>
+                <span className="text-emerald-400 font-medium">B.Tech CSE Scholar</span>
+              </div>
+            </div>
+
+            {/* Professional Experience & Internships */}
+            <div className="p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/80 space-y-3">
+              <div className="flex items-center gap-2 mb-1 font-mono text-xs text-amber-400 font-semibold uppercase tracking-wider">
+                <Briefcase className="w-4 h-4" />
+                <span>Internships & Experience</span>
+              </div>
+              <div className="space-y-3 text-xs">
+                <div>
+                  <div className="flex items-center justify-between text-white font-bold">
+                    <span>Data Science & ML Intern</span>
+                    <span className="text-[10px] font-mono text-zinc-500">4 MONTHS (MAY – SEP 2026)</span>
+                  </div>
+                  <p className="text-zinc-400 text-[11px]">AICTE × The IoT Academy × upSkill Campus</p>
+                  <p className="text-zinc-400 mt-1">Practical data pipelines, predictive model evaluation, and machine learning architectures.</p>
+                </div>
+                <div className="pt-2 border-t border-zinc-900">
+                  <div className="flex items-center justify-between text-white font-bold">
+                    <span>AI Web Development Intern</span>
+                    <span className="text-[10px] font-mono text-zinc-500">OCT 2026</span>
+                  </div>
+                  <p className="text-zinc-400 text-[11px]">InAmigos Foundation (IAF)</p>
+                  <p className="text-zinc-400 mt-1">Engineered NEXORA AI smart campus platform, Figma designs, and 20-page web accessibility audit.</p>
+                </div>
               </div>
             </div>
 
@@ -206,25 +232,29 @@ export function ResumeDrawer({ isOpen, onClose, playClick }) {
               <ul className="space-y-2 text-xs text-zinc-400 font-sans">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
-                  <span><strong>NPTEL Elite Gold Certificate</strong> — Programming in Java (Top Tier Performance).</span>
+                  <span><strong>🏆 Grand Finale Prize Winner // MED-AI-thon ’26</strong> — 50-Hour National MedTech Makeathon (Team COGNYX).</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
-                  <span><strong>Top 15 Finalist // HackXpertise 3.0</strong> — Built high-concurrency civic tech platform.</span>
+                  <span><strong>NPTEL Elite Gold Certificate</strong> — Programming in Java (Top Tier Performance 92%).</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
-                  <span><strong>Shortlisted & Participant</strong> — GitHub DevDays Hackathon & Hack Hustle 2.0.</span>
+                  <span><strong>National Recognition // Smart India Hackathon (SIH)</strong> — Shortlisted.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
+                  <span><strong>Round 3 Finalist // CodeStar 30 Hackathon</strong> — Built BrandGuard AI.</span>
                 </li>
               </ul>
             </div>
           </div>
 
           {/* Drawer Bottom Actions */}
-          <div className="p-6 bg-zinc-950 border-t border-zinc-800 flex items-center justify-between gap-3">
+          <div className="p-6 bg-zinc-950 border-t border-zinc-800 flex items-center justify-between gap-2.5">
             <a
               href={`mailto:${PERSONAL_INFO.email}?subject=Inquiry%20regarding%20Mohul%20Ram`}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-400 hover:bg-amber-300 text-black font-semibold text-xs font-mono uppercase tracking-wider rounded-xl transition-colors"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-3.5 py-2.5 bg-amber-400 hover:bg-amber-300 text-black font-semibold text-xs font-mono uppercase tracking-wider rounded-xl transition-colors"
             >
               <Mail className="w-4 h-4" />
               <span>Email Mohul</span>
@@ -234,11 +264,23 @@ export function ResumeDrawer({ isOpen, onClose, playClick }) {
               href={PERSONAL_INFO.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-mono text-zinc-300 hover:text-white transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-mono text-zinc-300 hover:text-white transition-colors"
             >
               <span>LinkedIn</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-amber-400" />
             </a>
+
+            {PERSONAL_INFO.youtube && (
+              <a
+                href={PERSONAL_INFO.youtube}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-mono text-zinc-300 hover:text-white transition-colors"
+              >
+                <span>YouTube</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-red-400" />
+              </a>
+            )}
           </div>
         </motion.aside>
         </div>

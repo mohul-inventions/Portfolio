@@ -5,7 +5,7 @@ export const PERSONAL_INFO = {
   headline: "BUILDING IDEAS INTO DIGITAL EXPERIENCES.",
   subheadline:
     "Computer Science Engineering student building full-stack applications, AI-powered systems and experimental digital products.",
-  role: "Computer Science Engineering Student | Full Stack Developer | AI/ML Enthusiast | Problem Solver",
+  role: "Computer Science Engineering Student | Full Stack Developer | AI/ML & Biomedical DSP | Aspiring Software Engineer",
   location: "Tamil Nadu, India",
   timezone: "IST (UTC+5:30)",
   email: "mohulram07@gmail.com",
@@ -15,10 +15,11 @@ export const PERSONAL_INFO = {
   githubUsername: "mohul-inventions",
   linkedin: "https://linkedin.com/in/c-r-mohul-ram-a373823ab",
   linkedinDisplay: "linkedin.com/in/c-r-mohul-ram-a373823ab",
+  youtube: "https://youtube.com/@mohulram-u3r?si=Lx59Lr80ZQ2HGbM0",
   education: {
     degree: "B.Tech – Computer Science Engineering",
     institution: "Amrita Vishwa Vidyapeetham, Nagercoil Campus",
-    year: "2nd Year Undergraduate (2024 – 2028)",
+    year: "Undergraduate (2025 – 2029)",
     status: "Currently Pursuing"
   },
   status: "OPEN FOR OPPORTUNITIES",
@@ -493,6 +494,16 @@ export const ADDITIONAL_PROJECTS = [
 
 export const HACKATHONS = [
   {
+    id: "medathon-2026",
+    title: "MED-AI-thon ’26 (50h National MedTech Makeathon)",
+    organizer: "R Shivakumar Foundation & StartupTN · Trichy SRM Medical College",
+    status: "🏆 Grand Finale Prize Winner",
+    badgeType: "winner",
+    year: "2026",
+    highlight: "Grand Finale Prize Winner with Team COGNYX; built Self-Healing Medication Administration Record (Software track PS2), advancing from Top 50 nationwide through Top 10 to Grand Finale victory",
+    category: "National MedTech Makeathon"
+  },
+  {
     id: "sih",
     title: "Smart India Hackathon (SIH)",
     organizer: "Govt. of India / MoE",
@@ -501,6 +512,16 @@ export const HACKATHONS = [
     year: "2025",
     highlight: "Nationwide innovation initiative solving real-world civic challenges",
     category: "National Hackathon"
+  },
+  {
+    id: "iris-27-iitm",
+    title: "IRIS 27 — International Conference on Computer Vision",
+    organizer: "IIT Madras",
+    status: "Call for Papers",
+    badgeType: "participant",
+    year: "2026",
+    highlight: "Participated in Call for Papers research presentation on computer vision architectures (Team Sumoh)",
+    category: "International Research Conference"
   },
   {
     id: "hack-hustle",
@@ -646,6 +667,15 @@ export const CLUB_AFFILIATION = {
 
 export const JOURNEY = [
   {
+    period: "2026",
+    title: "MED-AI-thon ’26 — Grand Finale Prize Winner 🏆",
+    institution: "R Shivakumar Foundation & StartupTN · Trichy SRM Medical College",
+    role: "Team Lead & Builder — Team COGNYX",
+    description:
+      "Clinched Grand Finale Prize victory in a grueling 50-Hour National MedTech Makeathon with Team COGNYX representing Amrita Vishwa Vidyapeetham. Engineered the Self-Healing Medication Administration Record (MAR) software system, progressing from Top 50 nationwide through Top 10 to final prize recognition.",
+    focusAreas: ["MedTech Engineering", "Healthcare Software", "50h Crucible Sprint", "Team Leadership"]
+  },
+  {
     period: "2026 — PRESENT",
     title: "Operations & Logistics Coordinator — CRAFT Club",
     institution: "Council for Real-world Applications & Future Tech · Amrita Vishwa Vidyapeetham",
@@ -656,40 +686,40 @@ export const JOURNEY = [
     focusAreas: ["Event Operations", "Logistics", "Technical Community", "Build-Alongs"]
   },
   {
-    period: "2024 — PRESENT",
+    period: "MAY 2026 — SEP 2026",
+    title: "Data Science & Machine Learning Intern",
+    institution: "AICTE × The IoT Academy × upSkill Campus × UniConverge Technologies",
+    role: "ML Intern (4-Month Program)",
+    description:
+      "Completed a rigorous 4-month industry internship focused on practical data pipelines, machine learning model architectures, exploratory data analysis, and predictive models evaluated across real-world datasets.",
+    focusAreas: ["Machine Learning", "Data Pipelines", "Scikit-learn", "Statistical Modeling"]
+  },
+  {
+    period: "OCT 2026",
+    title: "AI Web Development Intern",
+    institution: "InAmigos Foundation (IAF)",
+    role: "AI & Frontend Engineering Intern",
+    description:
+      "Engineered NEXORA AI (nexora-ai-mr1487.vercel.app), designed full-featured NGO web experiences in Figma, and authored a comprehensive 20-page technical audit on UI/UX, responsiveness, and web accessibility.",
+    focusAreas: ["React & Vite", "AI Campus Platform", "UI/UX Architecture", "Accessibility Audit"]
+  },
+  {
+    period: "2025 — 2029",
     title: "B.Tech in Computer Science Engineering",
     institution: "Amrita Vishwa Vidyapeetham, Nagercoil Campus",
-    role: "2nd Year Undergraduate",
+    role: "Undergraduate Scholar",
     description:
-      "Deepening core computer science foundations including Data Structures & Algorithms, Object-Oriented Programming, Database Management, and Operating Systems while actively leading engineering projects.",
+      "Mastering core computational foundations including Data Structures & Algorithms, Object-Oriented Programming, Database Management, and Operating Systems while actively leading engineering projects and hackathon teams.",
     focusAreas: ["Core CS", "Algorithm Design", "Software Architecture"]
   },
   {
-    period: "2024 — 2026",
-    title: "High-Pressure Hackathons & Technical Competitions",
-    institution: "IIT Madras, Saveetha SEC (Hack Hustle), NIT Trichy, VIT, SIH",
-    role: "Hackathon Competitor & System Builder",
-    description:
-      "Tested technical capabilities under real-world time pressure, architecting solutions like Transit Tracker, competing in SIH (Shortlisted) and Hack Hustle 2.0 (Shortlisted), discovering passion for high-velocity software engineering.",
-    focusAreas: ["Rapid Prototyping", "Team Engineering", "Systems Under Pressure"]
-  },
-  {
-    period: "2024 — 2026+",
-    title: "Computer Vision & Autonomous AI Experiments",
-    institution: "Independent Exploration & Research Builds",
-    role: "Vision AI & ML Enthusiast",
-    description:
-      "Applied computer vision models (OpenCV, YOLOv8) to real-world physical systems, culminating in the AI-Based Smart Traffic System with priority routing for emergency vehicles.",
-    focusAreas: ["Object Detection", "YOLOv8", "Preemptive Routing"]
-  },
-  {
     period: "CONTINUOUS",
-    title: "Modern Full-Stack Applications & Product Craft",
-    institution: "Open Source & Web Architecture",
-    role: "Full Stack Builder",
+    title: "Autonomous Multi-Agents, Biomedical DSP & Open Source",
+    institution: "Open Source & Engineering Builds (mohul-inventions)",
+    role: "System Builder & Researcher",
     description:
-      "Building production-grade web applications utilizing React, Tailwind CSS, Node.js, and MongoDB, emphasizing clean component boundaries, reactive states, and sleek developer UX.",
-    focusAreas: ["React Architecture", "REST APIs", "Modern Developer Tooling"]
+      "Architecting production systems across 36+ public repositories: from RespiraSense AI non-invasive biomedical telemetry to ARAN multi-agent climate disaster triage grids and AI-based smart traffic systems.",
+    focusAreas: ["Biomedical DSP", "Multi-Agent Grids", "YOLOv8 & OpenCV", "Full-Stack TypeScript"]
   }
 ];
 

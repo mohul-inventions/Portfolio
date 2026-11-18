@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeader } from '../components/SectionHeader';
 import { HACKATHONS } from '../data/portfolioData';
-import { Flame, Clock, Award, ShieldAlert, Sparkles, MapPin } from 'lucide-react';
+import { Flame, Clock, Trophy, MapPin } from 'lucide-react';
 import { TiltCard } from '../components/TiltCard';
 
 export function HackathonsSection({ playClick }) {
@@ -16,16 +16,48 @@ export function HackathonsSection({ playClick }) {
           description="High-velocity hackathons and engineering summits where ideas are forged into production within strict deadlines."
         />
 
+        {/* Featured Callout: MED-AI-thon ’26 Grand Finale Prize Winner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-6 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-amber-500/20 via-zinc-900/90 to-zinc-950 border-2 border-amber-400/60 relative overflow-hidden shadow-2xl"
+        >
+          <div className="absolute -right-8 -bottom-8 w-48 h-48 bg-amber-400/15 rounded-full blur-2xl pointer-events-none" />
+          
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <div className="flex items-center gap-2.5">
+              <span className="p-2.5 rounded-xl bg-amber-400 text-black shadow-lg shadow-amber-400/20">
+                <Trophy className="w-5 h-5" />
+              </span>
+              <div>
+                <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold">
+                  NATIONAL GRAND FINALE PRIZE WINNER // 2026
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+                  MED-AI-thon ’26 — 50h National MedTech Makeathon
+                </h3>
+              </div>
+            </div>
+
+            <span className="self-start sm:self-auto px-4 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-400 text-black shadow-lg shadow-amber-400/30">
+              🏆 Prize Winner
+            </span>
+          </div>
+
+          <p className="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed">
+            Representing Amrita Vishwa Vidyapeetham with <strong>Team COGNYX</strong> at Trichy SRM Medical College Hospital & StartupTN. Engineered the Self-Healing Medication Administration Record (MAR), progressing from Top 50 nationwide through the Top 10 to clinch the Grand Finale Prize in a grueling 50-hour makeathon sprint.
+          </p>
+        </motion.div>
+
         {/* Featured Callout: Smart India Hackathon Shortlisted */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-amber-500/15 via-zinc-900/80 to-zinc-950 border border-amber-500/40 relative overflow-hidden shadow-2xl"
+          className="mb-12 p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-amber-500/10 via-zinc-900/70 to-zinc-950 border border-amber-500/30 relative overflow-hidden shadow-xl"
         >
-          <div className="absolute -right-8 -bottom-8 w-48 h-48 bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
-          
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
             <div className="flex items-center gap-2.5">
               <span className="p-2 rounded-xl bg-amber-400/20 text-amber-400 border border-amber-400/30">
                 <Flame className="w-5 h-5" />
@@ -34,18 +66,18 @@ export function HackathonsSection({ playClick }) {
                 <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold">
                   NATIONAL RECOGNITION // 2025
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                   Smart India Hackathon (SIH)
                 </h3>
               </div>
             </div>
 
-            <span className="self-start sm:self-auto px-4 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-400 text-black shadow-lg shadow-amber-400/20">
+            <span className="self-start sm:self-auto px-3.5 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/40">
               Shortlisted
             </span>
           </div>
 
-          <p className="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-zinc-300 max-w-3xl leading-relaxed">
             Shortlisted in India's premier nationwide innovation initiative organized by the Ministry of Education,
             competing against top engineering teams across the country to solve real-world civic challenges.
           </p>
@@ -54,6 +86,7 @@ export function HackathonsSection({ playClick }) {
         {/* Timeline Grid of Verified Hackathons with 3D Tilt Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {HACKATHONS.map((hack, index) => {
+            const isWinner = hack.badgeType === 'winner';
             const isShortlisted = hack.badgeType === 'shortlisted';
 
             return (
@@ -68,7 +101,9 @@ export function HackathonsSection({ playClick }) {
                 <TiltCard maxTilt={4} className="h-full rounded-2xl">
                   <div
                     className={`group p-5 sm:p-6 rounded-2xl flex flex-col justify-between h-full transition-all duration-300 ${
-                      isShortlisted
+                      isWinner
+                        ? 'bg-gradient-to-br from-amber-500/15 via-zinc-900/90 to-zinc-950 border-amber-400/60 border-2 shadow-xl shadow-amber-400/10'
+                        : isShortlisted
                         ? 'bg-zinc-900/80 border-amber-400/40 border shadow-lg'
                         : 'bg-zinc-950/50 border border-zinc-800/80 hover:border-zinc-700 hover:bg-zinc-900/40'
                     }`}
@@ -82,7 +117,9 @@ export function HackathonsSection({ playClick }) {
 
                         <span
                           className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full font-medium ${
-                            isShortlisted
+                            isWinner
+                              ? 'bg-amber-400 text-black font-bold border border-amber-300'
+                              : isShortlisted
                               ? 'bg-amber-400/20 text-amber-300 border border-amber-400/30'
                               : 'bg-zinc-900 text-zinc-400 border border-zinc-800'
                           }`}

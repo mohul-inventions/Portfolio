@@ -160,6 +160,16 @@ export function CommandPalette({
       }
     },
     {
+      id: 'youtube',
+      category: 'External',
+      label: 'Watch Tech Builds on YouTube (@mohulram-u3r)',
+      icon: ExternalLink,
+      action: () => {
+        if (playClick) playClick();
+        window.open(PERSONAL_INFO.youtube, '_blank');
+      }
+    },
+    {
       id: 'mode',
       category: 'System',
       label: mode === 'system' ? 'Switch to Human Mode' : 'Switch to System Diagnostics Mode',
