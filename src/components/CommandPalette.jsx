@@ -17,9 +17,10 @@ import {
   Milestone, 
   Award, 
   X, 
-  Check 
+  Check,
+  ExternalLink
 } from 'lucide-react';
-import { Github, Linkedin } from './Icons';
+import { Github, Linkedin, Youtube } from './Icons';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 function TerminalTypewriter({ text, speed = 16 }) {
@@ -163,7 +164,7 @@ export function CommandPalette({
       id: 'youtube',
       category: 'External',
       label: 'Watch Tech Builds on YouTube (@mohulram-u3r)',
-      icon: ExternalLink,
+      icon: Youtube,
       action: () => {
         if (playClick) playClick();
         window.open(PERSONAL_INFO.youtube, '_blank');
