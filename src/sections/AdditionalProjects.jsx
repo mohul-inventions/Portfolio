@@ -62,11 +62,11 @@ export function AdditionalProjects({ playClick }) {
                   </div>
 
                   <a
-                    href={`${PERSONAL_INFO.github}/${project.repo}`}
+                    href={project.liveDemo || project.githubUrl || `${PERSONAL_INFO.github}/${project.repo}`}
                     target="_blank"
                     rel="noreferrer"
                     className="p-1.5 rounded-lg text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors"
-                    aria-label={`GitHub repo for ${project.name}`}
+                    aria-label={`Link for ${project.name}`}
                   >
                     <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </a>
@@ -81,20 +81,33 @@ export function AdditionalProjects({ playClick }) {
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-zinc-900 flex items-center justify-between">
-                <span className="text-[11px] font-mono text-zinc-500">
+              <div className="mt-4 pt-3 border-t border-zinc-900 flex items-center justify-between gap-2">
+                <span className="text-[11px] font-mono text-zinc-500 truncate">
                   {project.tech}
                 </span>
 
-                <a
-                  href={`${PERSONAL_INFO.github}/${project.repo}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-1 text-[11px] font-mono text-amber-400/90 hover:text-amber-300 transition-colors"
-                >
-                  <Github className="w-3 h-3" />
-                  <span>Repo</span>
-                </a>
+                <div className="flex items-center gap-2 shrink-0">
+                  {project.liveDemo && (
+                    <a
+                      href={project.liveDemo}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-1 text-[11px] font-mono text-emerald-400 hover:text-emerald-300 transition-colors"
+                    >
+                      <ArrowUpRight className="w-3 h-3" />
+                      <span>Live</span>
+                    </a>
+                  )}
+                  <a
+                    href={project.githubUrl || `${PERSONAL_INFO.github}/${project.repo}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-1 text-[11px] font-mono text-amber-400/90 hover:text-amber-300 transition-colors"
+                  >
+                    <Github className="w-3 h-3" />
+                    <span>Repo</span>
+                  </a>
+                </div>
               </div>
                 </div>
               </TiltCard>

@@ -148,23 +148,23 @@ export function ResumeDrawer({ isOpen, onClose, playClick }) {
               <div className="space-y-2 text-xs font-mono">
                 <div className="p-2.5 rounded-lg bg-zinc-900/30 border border-zinc-800/60 flex items-start gap-2">
                   <span className="text-zinc-500 w-24 shrink-0">LANGUAGES:</span>
-                  <span className="text-zinc-200">Java (NPTEL Elite Gold), Python, C, C++, JavaScript</span>
+                  <span className="text-zinc-200">Java (NPTEL Elite Gold), TypeScript, Python, JavaScript, C/C++</span>
                 </div>
                 <div className="p-2.5 rounded-lg bg-zinc-900/30 border border-zinc-800/60 flex items-start gap-2">
                   <span className="text-zinc-500 w-24 shrink-0">FRONTEND:</span>
-                  <span className="text-zinc-200">React, HTML5, CSS3, Tailwind CSS, Vite</span>
+                  <span className="text-zinc-200">React, TypeScript, Tailwind CSS, HTML5, CSS3, Vite</span>
                 </div>
                 <div className="p-2.5 rounded-lg bg-zinc-900/30 border border-zinc-800/60 flex items-start gap-2">
                   <span className="text-zinc-500 w-24 shrink-0">BACKEND / DB:</span>
-                  <span className="text-zinc-200">Node.js, Express, MongoDB, MySQL, REST APIs</span>
+                  <span className="text-zinc-200">Node.js, FastAPI, Prisma, MySQL (ACID), PostgreSQL, MongoDB</span>
                 </div>
                 <div className="p-2.5 rounded-lg bg-zinc-900/30 border border-zinc-800/60 flex items-start gap-2">
-                  <span className="text-zinc-500 w-24 shrink-0">AI / ML:</span>
-                  <span className="text-zinc-200">YOLOv8, OpenCV, Image Preprocessing, Density Estimation</span>
+                  <span className="text-zinc-500 w-24 shrink-0">AI / DSP / ML:</span>
+                  <span className="text-zinc-200">Biomedical DSP (SciPy), Multi-Agent Systems, YOLOv8, OpenCV</span>
                 </div>
                 <div className="p-2.5 rounded-lg bg-zinc-900/30 border border-zinc-800/60 flex items-start gap-2">
-                  <span className="text-zinc-500 w-24 shrink-0">DEVOPS & TOOLS:</span>
-                  <span className="text-zinc-200">Git, GitHub, Vercel, VS Code, CI Workflows</span>
+                  <span className="text-zinc-500 w-24 shrink-0">DSA & ARCH:</span>
+                  <span className="text-zinc-200">Binary Max-Heap, CRDT Offline Sync, LoRa Mesh Telemetry</span>
                 </div>
               </div>
             </div>

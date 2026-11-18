@@ -138,7 +138,7 @@ export function ProjectModal({ project, isOpen, onClose }) {
             )}
 
             {/* Action Buttons */}
-            <div className="pt-4 flex flex-wrap gap-4 border-t border-zinc-800/80">
+            <div className="pt-4 flex flex-wrap gap-3 border-t border-zinc-800/80">
               <a
                 href={project.githubUrl}
                 target="_blank"
@@ -148,6 +148,18 @@ export function ProjectModal({ project, isOpen, onClose }) {
                 <Github className="w-4 h-4" />
                 <span>View Repository ({project.repository})</span>
               </a>
+
+              {project.liveDemo && (
+                <a
+                  href={project.liveDemo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-400 hover:bg-emerald-300 text-black font-semibold text-sm rounded-lg transition-all shadow-lg shadow-emerald-400/10"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Launch Live Demo ↗</span>
+                </a>
+              )}
 
               <a
                 href={`https://github.com/mohul-inventions`}

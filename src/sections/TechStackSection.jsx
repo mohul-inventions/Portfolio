@@ -40,33 +40,40 @@ const CATEGORIES = [
 ];
 
 const ENRICHED_TECH_STACK = [
-  // AI / ML
+  // AI / ML & Biomedical DSP
   { name: 'YOLOv8', level: 'Computer Vision', icon: 'Terminal', note: 'Real-time Detection', categories: ['aiml', 'tools'], linkedProject: 'AI Smart Traffic' },
   { name: 'OpenCV', level: 'Image Processing', icon: 'Cpu', note: 'Computer Vision', categories: ['aiml'], linkedProject: 'AI Smart Traffic' },
-  { name: 'Python', level: 'Basics / ML', icon: 'Terminal', note: 'OpenCV, YOLOv8', categories: ['languages', 'aiml'], linkedProject: 'AI Smart Traffic' },
+  { name: 'Biomedical DSP', level: 'Signal Analysis', icon: 'Binary', note: 'Butterworth, SQI & Gating', categories: ['aiml', 'tools'], linkedProject: 'RespiraSense AI' },
+  { name: 'Multi-Agent Grids', level: 'Decentralized', icon: 'Component', note: 'Autonomous Triage Nodes', categories: ['aiml', 'backend'], linkedProject: 'ARAN / NeedBridge' },
+  { name: 'Python', level: 'DSP, Vision & ML', icon: 'Terminal', note: 'SciPy, Streamlit, YOLOv8', categories: ['languages', 'aiml', 'backend'], linkedProject: 'RespiraSense AI / Smart Traffic' },
 
   // Languages
+  { name: 'TypeScript', level: 'Production Full-Stack', icon: 'Code2', note: 'Strict Types & Contracts', categories: ['languages', 'frontend', 'backend'], linkedProject: 'ARAN / NeedBridge / BrandGuard' },
   { name: 'Java', level: 'Proficient', icon: 'Coffee', note: 'NPTEL Elite Gold', categories: ['languages'], linkedProject: 'Academic Systems' },
   { name: 'C', level: 'Foundations', icon: 'Cpu', note: 'Low-level Systems', categories: ['languages'], linkedProject: 'Core Systems' },
   { name: 'C++', level: 'Algorithms', icon: 'Boxes', note: 'OOP & Data Structures', categories: ['languages'], linkedProject: 'Algorithmic Builds' },
   { name: 'JavaScript', level: 'Proficient', icon: 'Code2', note: 'ES6+, Async, DOM', categories: ['languages', 'frontend'], linkedProject: 'Make Insure' },
 
   // Frontend
-  { name: 'React', level: 'Proficient', icon: 'Atom', note: 'Hooks, SPA, State', categories: ['frontend'], linkedProject: 'Make Insure / Portfolio' },
+  { name: 'React', level: 'Proficient', icon: 'Atom', note: 'Hooks, SPA, State', categories: ['frontend'], linkedProject: 'Make Insure / ARAN / Portfolio' },
   { name: 'Tailwind CSS', level: 'Proficient', icon: 'Wind', note: 'Modern Utility-First', categories: ['frontend'], linkedProject: 'All UI Systems' },
   { name: 'HTML5', level: 'Advanced', icon: 'Layout', note: 'Semantic Structure', categories: ['frontend'], linkedProject: 'Web Standards' },
   { name: 'CSS3', level: 'Advanced', icon: 'Palette', note: 'Modern layouts & FX', categories: ['frontend'], linkedProject: 'UI & Motion' },
 
   // Backend
-  { name: 'Node.js', level: 'Proficient', icon: 'Server', note: 'Express, APIs, Auth', categories: ['backend'], linkedProject: 'Make Insure Backend' },
+  { name: 'Node.js', level: 'Proficient', icon: 'Server', note: 'Express, APIs, Auth', categories: ['backend'], linkedProject: 'Make Insure / BrandGuard' },
+  { name: 'FastAPI', level: 'Async Microservices', icon: 'Terminal', note: 'High Performance Python', categories: ['backend'], linkedProject: 'NEEDBRIDGE Engine' },
+  { name: 'Prisma ORM', level: 'Type-Safe ORM', icon: 'Component', note: 'Schema & Migrations', categories: ['backend', 'database'], linkedProject: 'BrandGuard AI' },
 
   // Database
   { name: 'MongoDB', level: 'Proficient', icon: 'Database', note: 'NoSQL, Mongoose', categories: ['database', 'backend'], linkedProject: 'Make Insure Store' },
-  { name: 'MySQL', level: 'Proficient', icon: 'HardDrive', note: 'Relational Schemas', categories: ['database', 'backend'], linkedProject: 'Relational Records' },
+  { name: 'MySQL', level: 'Proficient', icon: 'HardDrive', note: 'ACID Locks & Stored Procs', categories: ['database', 'backend'], linkedProject: 'CampusTrack DBMS' },
+  { name: 'PostgreSQL / SQLite', level: 'Relational Store', icon: 'Database', note: 'Normalized Schemas', categories: ['database', 'backend'], linkedProject: 'NeedBridge / BrandGuard' },
 
-  // Tools
+  // Tools & DSA
+  { name: 'Max-Heap / DSA', level: 'O(log n) Triage', icon: 'Binary', note: 'Binary Heap & FIFO Tie', categories: ['tools'], linkedProject: 'A.E.G.I.S. Dispatch' },
   { name: 'Git', level: 'Essential', icon: 'GitBranch', note: 'Version Control', categories: ['tools'], linkedProject: 'All Repositories' },
-  { name: 'GitHub', level: 'Workflow', icon: 'Github', note: 'Open Source & CI', categories: ['tools'], linkedProject: 'mohul-inventions' },
+  { name: 'GitHub', level: 'Workflow', icon: 'Github', note: '36+ Public Repos & CI', categories: ['tools'], linkedProject: 'mohul-inventions' },
   { name: 'VS Code', level: 'Primary IDE', icon: 'FileCode', note: 'Developer Tooling', categories: ['tools'], linkedProject: 'Daily Dev' },
   { name: 'Vercel', level: 'Deployment', icon: 'Cloud', note: 'Edge Hosting & CI/CD', categories: ['tools'], linkedProject: 'Live Deployments' }
 ];

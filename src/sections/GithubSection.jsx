@@ -7,10 +7,10 @@ import { Github } from '../components/Icons';
 
 export function GithubSection() {
   const [profileData, setProfileData] = useState({
-    public_repos: 15,
-    followers: 10,
-    following: 12,
-    bio: 'Computer Science Engineering Student | Full Stack & AI Enthusiast'
+    public_repos: 36,
+    followers: 1,
+    following: 0,
+    bio: 'Computer Science and Engineering Student @ Amrita Vishwa Vidyapeetham, Nagercoil'
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -85,7 +85,7 @@ export function GithubSection() {
                   <span className="text-zinc-500">Public Code Access</span>
                 </div>
                 <div className="px-4 py-2 rounded-xl bg-zinc-900/80 border border-zinc-800 font-mono text-xs text-zinc-300">
-                  <span className="text-cyan-400 font-bold mr-2">10+</span>
+                  <span className="text-cyan-400 font-bold mr-2">20+</span>
                   <span className="text-zinc-500">Sprinted Builds</span>
                 </div>
               </div>

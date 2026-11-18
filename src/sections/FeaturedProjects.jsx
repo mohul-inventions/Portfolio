@@ -11,7 +11,12 @@ import {
   Shield, 
   Compass, 
   BookOpen, 
-  GraduationCap 
+  GraduationCap,
+  Activity,
+  Radio,
+  Layers,
+  ShieldCheck,
+  Siren
 } from 'lucide-react';
 import { Github } from '../components/Icons';
 import { TiltCard } from '../components/TiltCard';
@@ -19,11 +24,16 @@ import { AIVisionPlayground } from '../components/AIVisionPlayground';
 
 function getProjectIcon(id) {
   switch (id) {
+    case 'respirasense-ai': return <Activity className="w-5 h-5 text-rose-400" />;
+    case 'aran': return <Radio className="w-5 h-5 text-amber-400" />;
     case 'smart-traffic': return <Car className="w-5 h-5 text-amber-400" />;
-    case 'make-insure': return <Shield className="w-5 h-5 text-emerald-400" />;
+    case 'needbridge': return <Layers className="w-5 h-5 text-emerald-400" />;
+    case 'brandguard-ai': return <ShieldCheck className="w-5 h-5 text-purple-400" />;
+    case 'emergency-dispatch': return <Siren className="w-5 h-5 text-red-400" />;
+    case 'make-insure': return <Shield className="w-5 h-5 text-teal-400" />;
+    case 'project-aura': return <Sparkles className="w-5 h-5 text-amber-300" />;
     case 'transit-tracker': return <Compass className="w-5 h-5 text-blue-400" />;
     case 'memoryverse-ai': return <BookOpen className="w-5 h-5 text-purple-400" />;
-    case 'project-aura': return <Sparkles className="w-5 h-5 text-amber-300" />;
     case 'student-management-system': return <GraduationCap className="w-5 h-5 text-cyan-400" />;
     default: return <Terminal className="w-5 h-5 text-amber-400" />;
   }
@@ -128,8 +138,8 @@ export function FeaturedProjects({ playClick }) {
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="relative rounded-3xl bg-zinc-950 border border-zinc-800/90 overflow-hidden shadow-2xl p-8"
               >
-                {/* Feature 4: Animated Border Shimmer (for Featured Project #01 Smart Traffic System) */}
-                {currentProject.id === 'smart-traffic' && (
+                {/* Feature 4: Animated Border Shimmer (for Featured Project #01) */}
+                {currentProject.id === FEATURED_PROJECTS[0].id && (
                   <div className="pointer-events-none absolute -inset-[1px] rounded-3xl overflow-hidden z-0">
                     <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(245,158,11,0.25)_45deg,transparent_90deg)] animate-[spin_8s_linear_infinite]" />
                     <div className="absolute inset-[1px] bg-zinc-950 rounded-3xl" />
@@ -244,16 +254,30 @@ export function FeaturedProjects({ playClick }) {
                 </div>
 
                 {/* Repository Link & Actions */}
-                <div className="relative z-10 mt-8 pt-6 border-t border-zinc-800/80 flex items-center justify-between">
-                  <a
-                    href={currentProject.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-black font-semibold text-xs font-mono uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-amber-400/10"
-                  >
-                    <Github className="w-4 h-4" />
-                    <span>View Repository ↗</span>
-                  </a>
+                <div className="relative z-10 mt-8 pt-6 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <a
+                      href={currentProject.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-black font-semibold text-xs font-mono uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-amber-400/10"
+                    >
+                      <Github className="w-4 h-4" />
+                      <span>View Repository ↗</span>
+                    </a>
+
+                    {currentProject.liveDemo && (
+                      <a
+                        href={currentProject.liveDemo}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-emerald-400/15 hover:bg-emerald-400/25 border border-emerald-400/40 text-emerald-300 font-semibold text-xs font-mono uppercase tracking-wider rounded-xl transition-all"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>Live Demo ↗</span>
+                      </a>
+                    )}
+                  </div>
 
                   <button
                     onClick={() => {
@@ -322,16 +346,29 @@ export function FeaturedProjects({ playClick }) {
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-zinc-900 flex items-center justify-between">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-mono text-amber-400 font-semibold hover:underline"
-                    >
-                      <Github className="w-3.5 h-3.5" />
-                      <span>Repo ↗</span>
-                    </a>
+                  <div className="pt-4 border-t border-zinc-900 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-3">
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-mono text-amber-400 font-semibold hover:underline"
+                      >
+                        <Github className="w-3.5 h-3.5" />
+                        <span>Repo ↗</span>
+                      </a>
+                      {project.liveDemo && (
+                        <a
+                          href={project.liveDemo}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1 text-xs font-mono text-emerald-400 font-semibold hover:underline"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          <span>Live ↗</span>
+                        </a>
+                      )}
+                    </div>
 
                     <button
                       onClick={() => {
